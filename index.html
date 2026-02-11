@@ -1,0 +1,2482 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Quynh Tran Portfolio</title>
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A//www.w3.org/2000/svg'%20viewBox%3D'0%200%2064%2064'%3E%3Ccircle%20cx%3D'32'%20cy%3D'32'%20r%3D'28'%20fill%3D'rgba(255%2C255%2C255%2C0.94)'%20stroke%3D'rgba(11%2C42%2C60%2C0.22)'%20stroke-width%3D'2'/%3E%3Cpath%20d%3D'M18%2044a8%208%200%201%200%200-16%208%208%200%200%200%200%2016Zm28%200a8%208%200%201%200%200-16%208%208%200%200%200%200%2016Z'%20fill%3D'none'%20stroke%3D'%230B2A3C'%20stroke-width%3D'3'/%3E%3Cpath%20d%3D'M26%2020h12l6%2012H32l-6%2018'%20fill%3D'none'%20stroke%3D'%230B2A3C'%20stroke-width%3D'3'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'/%3E%3Cpath%20d%3D'M38%2020h10'%20fill%3D'none'%20stroke%3D'%230B2A3C'%20stroke-width%3D'3'%20stroke-linecap%3D'round'/%3E%3Ccircle%20cx%3D'18'%20cy%3D'36'%20r%3D'2'%20fill%3D'%2300A9E0'/%3E%3Ccircle%20cx%3D'46'%20cy%3D'36'%20r%3D'2'%20fill%3D'%2300A9E0'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <style>
+    :root{
+      --blue: #00A9E0;
+      --blue-deep: #0B2A3C;
+
+      --green: #2DBE60;
+      --green-deep: #147A3A;
+
+      --road: #C7CED6;
+      --panel: #F7F8FA;
+      --white: #fff;
+      --text: #0b1b2a;
+
+      --sun: #FFD34D;
+      --pink: #FF5A8A;
+      --mint: #A6E9D5;
+
+      --type: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+      --bg-grad:rgb(215, 213, 213);
+
+      --card-grad: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.90));
+      --sidebar-grad: linear-gradient(180deg, rgba(0,169,224,1), rgba(0,169,224,1));
+      --sidebar-finish-grad: linear-gradient(180deg, rgba(45,190,96,0.98), rgba(45,190,96,0.86));
+
+      --label-grad: linear-gradient(180deg, rgba(11,42,60,0.16), rgba(11,42,60,0.10));
+      --label-active-grad: linear-gradient(180deg, rgba(255,255,255,0.28), rgba(255,255,255,0.18));
+
+      --shadow-soft: 0 14px 34px rgba(11,42,60,0.18);
+      --shadow-card: 0 16px 42px rgba(11,42,60,0.12);
+      --shadow-chip: 0 10px 22px rgba(11,42,60,0.10);
+    }
+
+    *{ box-sizing:border-box }
+    html,body{ height:100% }
+
+    body{
+      margin:0;
+      font-family: var(--type);
+      font-size: 15px;
+      background: var(--bg-grad);
+      color: var(--text);
+      overflow-x:hidden;
+      letter-spacing: 0.1px;
+        padding-top: calc(var(--topbarH) + env(safe-area-inset-top));
+
+    }
+
+    a{ color: inherit; }
+
+    .nyc-vibes{
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .nyc-sticker{
+      position: absolute;
+      font-size: 48px;
+      opacity: 0.6;
+      transform: translate3d(0,0,0);
+      animation: floaty 12s ease-in-out infinite;
+      will-change: transform;
+      filter: saturate(1.1);
+    }
+
+    .nyc-sticker.s1 { left: 5vw;  top: 14vh; animation-duration: 13s; font-size: 46px; }
+    .nyc-sticker.s2 { left: 90vw; top: 12vh; animation-duration: 15s; font-size: 50px; }
+    .nyc-sticker.s3 { left: 6vw;  top: 60vh; animation-duration: 16s; font-size: 56px; }
+    .nyc-sticker.s4 { left: 86vw; top: 62vh; animation-duration: 14s; font-size: 46px; }
+    .nyc-sticker.s5 { left: 46vw; top: 80vh; animation-duration: 18s; font-size: 48px; }
+    .nyc-sticker.s6 { left: 55vw; top: 20vh; animation-duration: 15s; font-size: 44px; }
+    .nyc-sticker.s7 { left: 22vw; top: 36vh; animation-duration: 17s; font-size: 52px; }
+    .nyc-sticker.s8 { left: 74vw; top: 36vh; animation-duration: 19s; font-size: 54px; }
+
+    .nyc-sticker.s9  { left: 12vw; top: 82vh; animation-duration: 20s; font-size: 52px; }
+    .nyc-sticker.s10 { left: 82vw; top: 82vh; animation-duration: 21s; font-size: 50px; }
+    .nyc-sticker.s11 { left: 16vw; top: 10vh; animation-duration: 22s; font-size: 44px; }
+    .nyc-sticker.s12 { left: 70vw; top: 10vh; animation-duration: 18s; font-size: 46px; }
+    .nyc-sticker.s13 { left: 30vw; top: 18vh; animation-duration: 16s; font-size: 54px; }
+    .nyc-sticker.s14 { left: 64vw; top: 70vh; animation-duration: 17s; font-size: 56px; }
+    .nyc-sticker.s15 { left: 36vw; top: 48vh; animation-duration: 19s; font-size: 50px; }
+    .nyc-sticker.s16 { left: 92vw; top: 42vh; animation-duration: 20s; font-size: 44px; }
+
+    @keyframes floaty{
+      0%   { transform: translate3d(0, 0, 0) rotate(-2deg); }
+      50%  { transform: translate3d(0, -18px, 0) rotate(2deg); }
+      100% { transform: translate3d(0, 0, 0) rotate(-2deg); }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .nyc-sticker{ animation: none !important; }
+    }
+    @media (max-width: 700px){
+      .nyc-sticker{ opacity: 0.02; font-size: 54px; }
+    }
+
+:root{
+  --topbarH: 54px; 
+  --topGap: 12px;  
+   --sidebarOffset: 22px; 
+     --topbarH: 64px;   
+  --uiGap: 18px;     
+  --stickTop: calc(var(--topbarH) + var(--uiGap) + env(safe-area-inset-top));
+}
+
+.topbar{
+  position: fixed;         
+  top: 0;
+  left: 0;
+  right: 0;
+    height: var(--topbarH);
+
+  z-index: 10050;        
+  background: linear-gradient(180deg, rgba(0,169,224,1), rgba(0,169,224,0.92));
+  border-bottom: 1px solid rgba(255,255,255,0.35);
+  backdrop-filter: blur(6px);
+}
+
+
+body{
+  padding-top: calc(var(--topbarH) + env(safe-area-inset-top));
+}
+
+    .topbar-inner{
+      width: min(1260px, 92vw);
+      margin: 0 auto;
+      display:flex;
+      align-items:center;
+      text-align: center;
+      justify-content:space-between;
+      gap: 12px;
+      padding: 12px 0;
+      color: var(--white);
+    }
+    .title{
+      display: flex;
+      align-items:center;
+      text-align: center;
+      gap: 10px;
+      font-weight: 900;
+      line-height:2.5;
+    }
+    .title span{ font-size: 16px; font-weight: 950; }
+
+    .start-wrap-outer{
+      width: min(1260px, 92vw);
+      margin: 0 auto;
+        padding-top: calc(18px + var(--uiGap));
+      padding: 18px 0 10px;
+      position: relative;
+      z-index: 3;
+    }
+    body.ride-started .start-wrap-outer{ padding-bottom: 24px; }
+
+    .start-panel{
+      border-radius: 14px;
+      border: 3px solid var(--blue-deep);
+      background: linear-gradient(180deg, rgba(247,248,250,0.98), rgba(247,248,250,0.92));
+      padding: 22px 22px 18px;
+      box-shadow: var(--shadow-card);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .start-hero{
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .headshot-wrap{
+      width: 140px;
+      height: 140px;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.12);
+      background: rgba(255,255,255,0.7);
+      box-shadow: 0 12px 24px rgba(11,42,60,0.10);
+    }
+
+    .headshot-img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    @media (max-width: 700px){
+      .start-hero{ grid-template-columns: 1fr; }
+      .headshot-wrap{ width: 120px; height: 120px; }
+    }
+
+    .start-panel::before{
+      content:"";
+      position:absolute;
+      right:-60px;
+      top:-60px;
+      width:200px;
+      height:200px;
+      border-radius:999px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,211,77,0.28), transparent 60%);
+      pointer-events:none;
+    }
+
+    .layout{
+      width: min(1260px, 92vw);
+      margin: 0 auto;
+      padding: 14px 0 44px;
+      display:grid;
+      grid-template-columns: minmax(295px, 330px) 42px 1fr;
+      align-items:start;
+      position: relative;
+      z-index: 3;
+      gap: 0;
+      overflow: visible;
+    }
+
+    .layout > main { min-width: 0; }
+    .content { min-width: 0; }
+    section.section, section.sectiongame { min-width: 0; }
+
+    @media (max-width: 1100px){
+      .layout{ grid-template-columns: 1fr; gap: 12px; padding-bottom: 25px; }
+    }
+
+    .divider{
+      height: calc(100vh - 92px);
+      position: sticky;
+  top: var(--stickTop) !important;
+  height: calc(100vh - var(--stickTop) - 16px) !important;
+
+      align-self: start;
+      display:flex;
+      align-items: stretch;
+      justify-content:center;
+      pointer-events:none;
+    }
+    @media (max-width: 1100px){
+      .divider{ display:none; }
+    }
+    .divider::before{
+      content:"";
+      width: 6px;
+      border-radius: 999px;
+      background:
+        repeating-linear-gradient(
+          180deg,
+          rgba(255,255,255,0.92) 0 18px,
+          rgba(255,255,255,0.00) 18px 36px
+        );
+      opacity: 0.95;
+    }
+
+    .sidebar{
+      position: sticky;
+  top: var(--stickTop) !important;
+      border-radius: 14px;
+      overflow:hidden;
+      border: 3px solid var(--blue-deep);
+      background: var(--sidebar-grad);
+      color: var(--white);
+      padding: 18px;
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+      box-shadow: var(--shadow-soft);
+      transition: background .25s ease, border-color .25s ease, filter .25s ease;
+    }
+    @media (max-width: 1100px){
+      .sidebar{
+        position: sticky;
+          margin-top: 0; 
+  padding-top: 18px; 
+        top: 56px;
+        z-index: 9998;
+      }
+    }
+
+    .sidebar.is-finish{
+      background: var(--sidebar-finish-grad);
+      border-color: rgba(255,255,255,0.65);
+    }
+
+    .sidebar.is-danger{
+      background: linear-gradient(180deg, rgb(224, 55, 103), rgba(0,169,224,1));
+      border-color: rgb(255, 93, 139);
+      filter: saturate(1.02);
+    }
+
+    .sidebar::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      opacity: 0.16;
+      background:
+        linear-gradient(rgba(255,255,255,0.22) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.22) 1px, transparent 1px);
+      background-size: 28px 28px;
+      background-position: -6px -6px;
+      mix-blend-mode: overlay;
+    }
+
+    .side-head{
+      position:relative;
+      z-index:1;
+      padding: 2px 2px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.22);
+    }
+
+    .side-title-row{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+    }
+    .drag-big{
+      width: 59px;
+      height: 59px;
+      border-radius: 999px;
+      display:grid;
+      place-items:center;
+      flex: 0 0 auto;
+      background: var(--white);
+      box-shadow: 0 10px 18px rgba(11,42,60,0.14);
+      font-size: 52px;
+      font-weight: 950;
+      line-height: 1;
+    }
+
+    .drag-icon-img{
+      width: 34px;
+      height: 34px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .drag-hint-img{
+      width: 14px;
+      height: 14px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .side-head p{
+      margin:1px 0 0;
+      font-size: 11.5px;
+      color: rgba(255,255,255,0.94);
+      line-height:1.35;
+      font-weight: 700;
+    }
+    .route-board{
+      position: relative;
+      z-index: 1;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.625), rgba(255,255,255,0.08));
+      height: 660px;
+      overflow: hidden;
+      padding: 12px;
+
+      --dock-col: 68px;
+      --lane-x: calc(12px + (var(--dock-col) / 2));
+    }
+    @media (max-width: 1100px){
+      .route-board{ height: 320px; }
+    }
+
+    .route-board::after{
+      content:"";
+      position:absolute;
+      top: 12px;
+      bottom: 12px;
+      left: var(--lane-x);
+      width: 0;
+      border-left: 4px dashed rgba(255,255,255,0.86);
+      opacity: 0.92;
+      pointer-events:none;
+    }
+    .route-board::before{
+      content:"";
+      position:absolute;
+      top: 12px;
+      bottom: 12px;
+      left: var(--lane-x);
+      width: 0;
+      border-left: 6px solid rgba(11,42,60,0.18);
+      opacity: 0.85;
+      pointer-events:none;
+    }
+
+    .stops{
+      position: relative;
+      list-style:none;
+      margin: 0;
+      padding: 0;
+      display:flex;
+      flex-direction:column;
+      gap: 14px;
+      height: 100%;
+      justify-content: space-between;
+      z-index: 2;
+    }
+
+    .stop{
+      display:grid;
+      grid-template-columns: var(--dock-col) 1fr;
+      gap: 10px;
+      align-items:center;
+      padding: 0;
+      cursor: pointer;
+      user-select:none;
+      min-height: 64px;
+    }
+
+    .bike-dock{
+      width: var(--dock-col);
+      height: 100%;
+      display:grid;
+      place-items:center;
+      position: relative;
+      pointer-events:none;
+    }
+    .parking-spot{
+      width: 52px;
+      height: 52px;
+      border-radius: 999px;
+      border: 3px dashed rgba(255,255,255,0.92);
+      opacity: 0.95;
+    }
+    .bike-dock.has-bike .parking-spot{ visibility: hidden; }
+
+    .stop-label,
+    .stopgame-label{
+      display:flex;
+      align-items:center;
+      width: 100%;
+      justify-content: flex-start;
+      gap: 10px;
+      min-height: 64px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: rgba(0,169,224,0.90);
+      border: 2px solid rgba(255,255,255,0.70);
+      transition: background .18s ease, border-color .18s ease, outline-color .18s ease;
+      box-shadow: 0 10px 18px rgba(11,42,60,0.12);
+    }
+
+    .stop .label-text strong{
+      display:block;
+      font-size: 12px;
+      color: rgba(255,255,255,0.98);
+      line-height:1.15;
+      font-weight: 950;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+
+    .stop.is-active .stop-label,
+    .stop.is-active .stopgame-label,
+    .stop.is-docked .stop-label,
+    .stop.is-docked .stopgame-label{
+      background: rgba(255,255,255,0.98);
+      border-color: var(--blue-deep);
+    }
+
+    .stop.is-active .label-text strong,
+    .stop.is-docked .label-text strong{
+      color: var(--blue-deep);
+    }
+
+    .stop.is-drop-target .stop-label,
+    .stop.is-drop-target .stopgame-label{
+      outline: 4px solid rgba(255,255,255,0.98);
+      outline-offset: 2px;
+      background: rgba(255,255,255,0.98);
+      border-color: var(--blue-deep);
+    }
+    .stop.is-drop-target .label-text strong{
+      color: var(--blue-deep);
+    }
+
+    .stop .icon{
+      width: 36px; height:36px;
+      border-radius: 999px;
+      display:grid;
+      place-items:center;
+      background: rgba(255, 255, 255, 0.95);
+      font-size: 20px;
+      flex: 0 0 auto;
+      box-shadow: 0 12px 22px rgba(11,42,60,0.14);
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+
+    .route-bike{
+      width: 52px;
+      height: 52px;
+      position:absolute;
+      left: 0;
+      top: 0;
+      z-index: 6;
+      user-select:none;
+      touch-action:none;
+      will-change: transform;
+      transform: translate3d(-9999px, -9999px, 0);
+      cursor: grab;
+      filter: drop-shadow(0 10px 14px rgba(11,42,60,0.18));
+    }
+    .route-bike.dragging{
+      cursor: grabbing;
+      opacity: 0.90;
+      filter: drop-shadow(0 16px 22px rgba(11,42,60,0.28));
+    }
+    .route-bike .drag-hint{
+      position:absolute;
+      right: -6px;
+      top: -6px;
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      display:grid;
+      place-items:center;
+      background: rgba(255,255,255,0.95);
+      border: 1px solid rgba(11,42,60,0.25);
+      color: var(--blue);
+      opacity: 0;
+      pointer-events:none;
+      font-size: 14px;
+      font-weight: 900;
+    }
+    .route-bike:hover .drag-hint{ opacity: 1; }
+
+    .ride-complete{
+      position: relative;
+      z-index: 1;
+      margin-top: 8px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.55);
+      background: rgba(23, 124, 5, 0.862);
+      padding: 12px 12px;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      gap: 12px;
+      font-weight: 950;
+    }
+    .sidebar.is-finish .ride-complete{ display:flex; }
+    .ride-complete .txt{
+      font-size: 22px;
+      letter-spacing: .3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.98);
+    }
+
+    .content{
+      display:flex;
+      flex-direction:column;
+      gap: 25px;
+    }
+    section.section{
+      scroll-margin-top: 92px;
+      border-radius: 14px;
+      border: 3px solid var(--blue-deep);
+      background: var(--card-grad);
+      padding: 28px;
+      box-shadow: var(--shadow-chip);
+      position: relative;
+      overflow: hidden;
+    }
+    section.sectiongame{
+      scroll-margin-top: 92px;
+      border-radius: 14px;
+      border: 3px solid var(--blue-deep);
+      background: rgb(255, 248, 105);
+      padding: 28px;
+      box-shadow: var(--shadow-chip);
+      position: relative;
+      overflow: hidden;
+    }
+    @media (max-width: 700px){
+      section.section,
+      section.sectiongame{
+        scroll-margin-top: 210px;
+      }
+    }
+
+    h1{
+      margin: 0 0 10px;
+      font-size: 46px;
+      font-weight: 950;
+      color: var(--blue);
+      line-height: 1.06;
+      text-shadow: 0 10px 22px rgba(0,169,224,0.20);
+    }
+    h2{
+      margin: 0 0 10px;
+      font-size: 30px;
+      color: var(--blue);
+      font-weight: 950;
+      line-height: 1.15;
+      text-shadow: 0 8px 18px rgba(0,169,224,0.16);
+    }
+    .subhead{
+      margin: 12px 0 8px;
+      font-size: 20px;
+      color: rgba(11,27,42,0.92);
+      font-weight: 950;
+    }
+    .meta-line{
+      margin: 0 0 10px;
+      color: rgba(11,27,42,0.70);
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .desc{
+      margin: 0 0 12px;
+      line-height: 1.65;
+      color: rgba(11,27,42,0.82);
+      font-weight: 700;
+      font-size: 16px;
+    }
+    ul{ margin:0; padding-left: 18px; }
+    li{ margin: 8px 0; line-height: 1.55; font-size: 15px; }
+
+    .start-actions{
+      display:flex;
+      flex-direction:column;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .start-btn{
+      display:block;
+      width: 100%;
+      text-align:center;
+      padding: 12px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(0,0,0,0.10);
+      background: linear-gradient(180deg, rgba(0,169,224,1), rgba(0,169,224,0.86));
+      color: var(--white);
+      font-weight: 950;
+      font-size: 18px;
+      text-decoration:none;
+      box-shadow: 0 12px 24px rgba(0,169,224,0.22);
+    }
+    .start-btn:hover{ filter: brightness(1.02); }
+    .start-btn.tiny{
+      padding: 9px 12px;
+      font-size: 13px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.90));
+      color: var(--blue);
+      border: 1px solid rgba(0,0,0,0.12);
+      font-weight: 900;
+      box-shadow: 0 10px 18px rgba(11,42,60,0.08);
+    }
+    .start-btn.tiny.badge{
+      padding: 9px 12px;
+      font-size: 13px;
+      border-radius: 12px;
+      background: var(--blue);
+      color: var(--white);
+      font-weight: 900;
+      box-shadow: 0 10px 18px rgba(11,42,60,0.08);
+    }
+
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%) translateY(18px);
+      opacity: 0;
+      transition: opacity .18s ease, transform .18s ease;
+      z-index: 200;
+      pointer-events:none;
+      font-family: var(--type);
+    }
+    .toast.show{
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    .toast .bubble{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(0,169,224,1), rgba(0,169,224,0.88));
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.45);
+      font-weight: 950;
+      box-shadow: 0 12px 24px rgba(0,169,224,0.20);
+    }
+
+    .big-alert{
+      position: fixed;
+      inset: 0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 10000;
+      transition: opacity .18s ease;
+    }
+    .big-alert.show{ opacity: 1; }
+
+    .big-alert-card{
+      max-width: min(760px, 92vw);
+      padding: 16px 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.92);
+      border: 3px solid rgba(185, 13, 4, 0.5);
+      box-shadow: 0 22px 62px rgba(11,42,60,0.28);
+      backdrop-filter: blur(10px);
+      transform: scale(0.96);
+      transition: transform .18s ease;
+      text-align:center;
+    }
+    .big-alert.show .big-alert-card{ transform: scale(1); }
+
+    .big-alert-text{
+      font-size: 26px;
+      font-weight: 950;
+      line-height: 1.15;
+      color: rgba(185, 13, 4, 0.901);
+      letter-spacing: .2px;
+    }
+    @media (max-width: 700px){
+      .big-alert-text{ font-size: 26px; }
+    }
+
+    .big-alert.danger .big-alert-card{
+      border-color: rgba(255,90,138,0.60);
+    }
+    .big-alert.danger .big-alert-text{
+      color: rgba(155, 0, 38, 0.95);
+    }
+
+    body:not(.ride-started) .layout{ display:none; }
+.start-wrap-outer{
+  transition: max-height .35s ease, padding .28s ease, opacity .25s ease;
+  max-height: 1200px; 
+  opacity: 1;
+}
+
+body.ride-started:not(.show-intro) .start-wrap-outer{
+  max-height: 0 !important;
+  padding: 0 !important;
+  opacity: 0 !important;
+  overflow: hidden !important;
+}
+
+body.ride-started:not(.show-intro) .start-panel{
+  pointer-events: none;
+}
+
+    .finish-band{
+      width: 100%;
+      position: relative;
+      z-index: 3;
+      margin-top: 6px;
+      padding: 53px 0 49px;
+      border-top: 1px solid rgba(10,35,55,0.18);
+
+      background-color: #fff;
+      background-image:
+        linear-gradient(45deg, #000 25%, transparent 25%),
+        linear-gradient(-45deg, #000 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #000 75%),
+        linear-gradient(-45deg, transparent 75%, #000 75%);
+      background-size: 36px 36px;
+      background-position: 0 0, 0 18px, 18px -18px, -18px 0;
+    }
+
+    body:not(.ride-started) .finish-band{ display:none; }
+
+    .finish-panel{
+      width: 100%;
+      margin: 0 auto;
+      background: var(--white);
+      padding: 42px 42px;
+      text-align:center;
+      align-items: center;
+      box-shadow: 0 14px 34px rgba(11,42,60,0.12);
+      position: relative;
+      overflow: hidden;
+    }
+    .finish-panel .sub{
+      margin: 0;
+      font-size: 17px;
+      font-weight: 850;
+      color: rgba(11,27,42,0.82);
+      position: relative;
+      z-index: 1;
+    }
+
+    #finish{
+      height: 1px;
+      scroll-margin-top: 92px;
+    }
+
+    .game-wrap{
+      position: relative;
+      width: 100%;
+      max-width: 920px;
+      margin-top: 14px;
+      border-radius: 14px;
+      border: 2px solid rgba(11,42,60,0.18);
+      background: rgba(255,255,255,0.86);
+      box-shadow: 0 12px 22px rgba(11,42,60,0.10);
+      overflow: hidden;
+    }
+
+    #dinoGame{
+      width: 100%;
+      height: auto;
+      display: block;
+      touch-action: manipulation;
+      image-rendering: auto;
+    }
+
+    .game-hint{
+      position:absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: rgba(11,42,60,0.48);
+      color: rgba(255,255,255,0.96);
+      font-weight: 550;
+      letter-spacing: .2px;
+      text-align: center;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .2s ease;
+    }
+
+    .game-hint.show{ opacity: 1; }
+
+    .game-controls{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.92);
+      border: 2px solid rgba(11,42,60,0.18);
+      box-shadow: 0 10px 18px rgba(11,42,60,0.08);
+    }
+
+    .game-slider-label{
+      font-weight: 950;
+      color: rgba(11,42,60,0.85);
+      letter-spacing: .2px;
+    }
+
+    #speedSlider{
+      width: 100%;
+      accent-color: #00A9E0;
+    }
+
+    body.is-loading { overflow: hidden; }
+
+    .loader{
+      position: fixed;
+      inset: 0;
+      z-index: 999999;
+      display: grid;
+      place-items: center;
+      background: rgba(215,213,213,0.92);
+      backdrop-filter: blur(6px);
+    }
+
+    .loader-card{
+      width: min(740px, 92vw);
+      border-radius: 18px;
+      border: 3px solid var(--blue-deep);
+      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.90));
+      box-shadow: 0 22px 62px rgba(11,42,60,0.22);
+      padding: 18px 18px 16px;
+    }
+
+    .loader-title{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 950;
+      color: var(--blue-deep);
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+    .loader-title .pin{ font-size: 22px; }
+
+    .loader-track{
+      position: relative;
+      height: 86px;
+      border-radius: 14px;
+      border: 2px solid rgba(11,42,60,0.18);
+      background:
+        linear-gradient(180deg, rgba(0,169,224,0.10), rgba(0,169,224,0.03));
+      overflow: hidden;
+      z-index: 2;
+    }
+
+    .loader-track::before{
+      content: "";
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      top: 50%;
+      height: 4px;
+      transform: translateY(-50%);
+      border-radius: 999px;
+      background: rgba(11,42,60,0.16);
+      z-index: 0;
+    }
+
+    .loader-fill{
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      height: 8px;
+      transform: translateY(-50%);
+      border-radius: 999px;
+      width: 0%;
+      background: linear-gradient(90deg, rgba(0,169,224,0.95), rgba(0,169,224,0.55));
+      box-shadow: 0 10px 18px rgba(0,169,224,0.22);
+      z-index: 1;
+    }
+
+    .loader-bike{
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      left: 45px;
+      width: 44px;
+      height: 44px;
+      filter: drop-shadow(0 14px 18px rgba(11,42,60,0.20));
+      z-index: 3;
+    }
+
+    .loader-obstacle{
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 30px;
+      filter: drop-shadow(0 10px 14px rgba(11,42,60,0.18));
+      transition: opacity .18s ease, transform .18s ease, filter .18s ease;
+      z-index: 3;
+    }
+
+    .loader-obstacle:nth-of-type(1){ left: 22%; }
+    .loader-obstacle:nth-of-type(2){ left: 46%; }
+    .loader-obstacle:nth-of-type(3){ left: 70%; }
+    .loader-obstacle:nth-of-type(4){ left: 90%; }
+
+    .loader-obstacle.passed{
+      opacity: 0.18;
+      filter: grayscale(1);
+    }
+
+    .loader-obstacle.bonk{
+      transform: translate(-50%, calc(-50% - 8px)) scale(1.08);
+    }
+
+    .loader-row{
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .loader-pct{
+      font-weight: 950;
+      color: var(--blue-deep);
+      font-size: 16px;
+    }
+
+    .loader-sub{
+      font-weight: 800;
+      color: rgba(11,42,60,0.70);
+      font-size: 13px;
+    }
+
+    .loader.hide{
+      animation: loaderFade .35s ease forwards;
+    }
+    @keyframes loaderFade{
+      to { opacity: 0; visibility: hidden; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .loader-obstacle.bonk{ transform: translate(-50%, -50%); }
+    }
+
+    @media (max-width: 1100px){
+
+      .sidebar{
+        top: 56px;
+        z-index: 9998;
+        padding: 10px;
+        gap: 8px;
+        height: clamp(150px, 18vh, 190px);
+      }
+
+      .side-head{
+        padding: 0 0 6px;
+      }
+      .side-head p{ display:none; }
+      .drag-big{ width: 44px; height: 44px; }
+      .drag-icon-img{ width: 26px; height: 26px; }
+      .side-title-row .subhead{ font-size: 18px; }
+
+      .route-board{
+        flex: 1 1 auto;
+        height: auto;
+        padding: 10px;
+
+        --dock-col: 56px;
+        --lane-y: calc(10px + (var(--dock-col) / 2));
+      }
+
+      .route-board::before,
+      .route-board::after{
+        left: 10px;
+        right: 10px;
+        top: var(--lane-y);
+        bottom: auto;
+        width: auto;
+        height: 0;
+        border-left: 0 !important;
+      }
+      .route-board::before{ border-top: 6px solid rgba(11,42,60,0.18); }
+      .route-board::after { border-top: 4px dashed rgba(255,255,255,0.86); }
+
+      .stops{
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: stretch;
+        gap: 8px;
+        height: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 0 2px 8px;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+      }
+      .stops::-webkit-scrollbar{ height: 0px; }
+
+      .stop{
+        grid-template-columns: 1fr;
+        grid-template-rows: var(--dock-col) 1fr;
+        gap: 6px;
+        min-height: 0;
+        flex: 0 0 calc((100% - 16px) / 3);
+        scroll-snap-align: center;
+      }
+
+      .bike-dock{
+        width: 100%;
+        height: var(--dock-col);
+        display:grid;
+        place-items:center;
+      }
+      .parking-spot{
+        width: 46px;
+        height: 46px;
+      }
+
+.stop{
+  grid-template-rows: var(--dock-col) auto;
+}
+
+.sidebar{
+  height: clamp(210px, 26vh, 290px);
+}
+
+.route-board{
+  min-height: 100px;  
+  overflow: visible;  
+}
+.stop-label,
+.stopgame-label{
+  min-height: auto;
+  padding: 6px 8px;
+  border-radius: 12px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+
+  background: rgba(11,42,60,0.22);
+  border: 2px solid rgba(255,255,255,0.45);
+  box-shadow: 0 10px 18px rgba(11,42,60,0.10);
+}
+
+.stop .icon{
+  display: grid;
+  place-items: center;
+
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+
+  background: rgba(255,255,255,0.95);
+  font-size: 16px;
+  box-shadow: 0 8px 14px rgba(11,42,60,0.10);
+}
+
+.stop .label-text{
+  width: 100%;
+  text-align: center;
+}
+
+.stop .label-text strong{
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
+  font-size: 11px;
+  line-height: 1.1;
+  font-weight: 950;
+  color: rgba(255,255,255,0.96);
+  text-shadow: 0 2px 8px rgba(11,42,60,0.25);
+}
+      .route-bike{
+        width: 44px;
+        height: 44px;
+      }
+      .route-bike svg{
+        width: 44px;
+        height: 44px;
+      }
+
+      .ride-complete{ display:none !important; }
+    }
+    @media (max-width: 420px){
+  .stop .label-text strong{ font-size: 10px; }
+  .stop .icon{ width: 20px; height: 20px; font-size: 13px; }
+}
+
+
+  </style>
+</head>
+
+<body class="is-loading">
+
+<div id="loader" class="loader" role="status" aria-live="polite" aria-label="Loading website">
+  <div class="loader-card">
+    <div class="loader-title">
+      <span class="pin">📍</span>
+      <span>Loading your ride…</span>
+    </div>
+
+    <div class="loader-track" aria-hidden="true">
+      <span class="loader-obstacle" data-at="0.18">🐀</span>
+      <span class="loader-obstacle" data-at="0.42">🚕</span>
+      <span class="loader-obstacle" data-at="0.66">🐦</span>
+      <span class="loader-obstacle" data-at="0.86">🍕</span>
+
+      <div class="loader-bike" id="loaderBike" aria-hidden="true">
+        <svg viewBox="0 0 64 64" width="44" height="44">
+          <circle cx="32" cy="32" r="28" fill="rgba(255,255,255,0.98)" stroke="rgba(11,42,60,0.28)" stroke-width="2"/>
+          <path d="M18 44a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm28 0a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"
+                fill="none" stroke="#0B2A3C" stroke-width="3"/>
+          <path d="M26 20h12l6 12H32l-6 18" fill="none" stroke="#0B2A3C" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M38 20h10" fill="none" stroke="#0B2A3C" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="18" cy="36" r="2" fill="#00A9E0"/>
+          <circle cx="46" cy="36" r="2" fill="#00A9E0"/>
+        </svg>
+      </div>
+
+      <div class="loader-fill" id="loaderFill" aria-hidden="true"></div>
+    </div>
+
+    <div class="loader-row">
+      <div class="loader-pct"><span id="loaderPct">0%</span></div>
+      <div class="loader-sub">Dodging NYC obstacles…</div>
+    </div>
+  </div>
+</div>
+
+  <div class="nyc-vibes" aria-hidden="true">
+    <div class="nyc-sticker s1">🚕</div>
+    <div class="nyc-sticker s2">🍕</div>
+    <div class="nyc-sticker s3">🗽</div>
+    <div class="nyc-sticker s4">🐀</div>
+    <div class="nyc-sticker s5">🚕</div>
+    <div class="nyc-sticker s6">🍕</div>
+    <div class="nyc-sticker s7">🐀</div>
+    <div class="nyc-sticker s8">☕</div>
+    <div class="nyc-sticker s9">🍕</div>
+    <div class="nyc-sticker s10">🚕</div>
+    <div class="nyc-sticker s11">🍕</div>
+    <div class="nyc-sticker s12">☕</div>
+    <div class="nyc-sticker s13">🐀</div>
+    <div class="nyc-sticker s14">🚕</div>
+    <div class="nyc-sticker s15">🍕</div>
+    <div class="nyc-sticker s16">🗽</div>
+  </div>
+
+  <header class="topbar" role="banner">
+    <div class="topbar-inner">
+      <div class="title" aria-label="Site title">
+        <span>Quynh Tran's Website</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="start-wrap-outer">
+    <section class="start-panel" id="start" aria-label="Start the ride">
+      <div class="start-hero">
+        <div class="headshot-wrap" aria-hidden="true">
+          <img src="headshot.png" alt="Headshot" class="headshot-img">
+        </div>
+
+        <div class="start-hero-text">
+          <h1>Hi there!</h1>
+          <div class="subhead">I'm Quynh Tran and I'm excited for you to be here.</div>
+
+          <div class="start-actions">
+            <a class="start-btn" href="#education" id="startRideBtn" data-nav="education">Let's start biking!</a>
+            <a class="start-btn tiny" href="#contact" data-nav="contact">Or just dock and contact</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="layout">
+    <aside class="sidebar" id="sidebar" aria-label="Citi Bike Route Sidebar">
+      <div class="side-head">
+        <div class="side-title-row">
+          <div class="drag-big" aria-hidden="true">
+            <img src="drag-icon.png" alt="" class="drag-icon-img">
+          </div>
+
+          <div>
+            <div class="subhead" style="color:#fff; margin:0 0 4px;">Bike Route</div>
+            <p>Drag • Scroll • Click</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="route-board" id="routeBoard" aria-label="Stations">
+        <div class="route-bike" id="bike" role="button" tabindex="0" aria-label="Drag the bike to another station">
+          <div class="drag-hint" aria-hidden="true">
+            <img src="drag-icon.png" alt="" class="drag-hint-img">
+          </div>
+
+          <svg viewBox="0 0 64 64" width="52" height="52" aria-hidden="true">
+            <circle cx="32" cy="32" r="28" fill="rgba(255,255,255,0.94)" stroke="rgba(11,42,60,0.22)" stroke-width="2"/>
+            <path d="M18 44a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm28 0a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"
+                  fill="none" stroke="#0B2A3C" stroke-width="3"/>
+            <path d="M26 20h12l6 12H32l-6 18" fill="none" stroke="#0B2A3C" stroke-width="3"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M38 20h10" fill="none" stroke="#0B2A3C" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="18" cy="36" r="2" fill="#00A9E0"/>
+            <circle cx="46" cy="36" r="2" fill="#00A9E0"/>
+          </svg>
+        </div>
+
+        <ul class="stops" id="stops">
+          <li class="stop" data-target="education">
+            <div class="bike-dock"><div class="parking-spot" aria-hidden="true"></div></div>
+            <div class="stop-label">
+              <div class="icon" aria-hidden="true">🎓</div>
+              <div class="label-text"><strong>Education</strong></div>
+            </div>
+          </li>
+
+          <li class="stop" data-target="work-experience">
+            <div class="bike-dock"><div class="parking-spot" aria-hidden="true"></div></div>
+            <div class="stop-label">
+              <div class="icon" aria-hidden="true">💼</div>
+              <div class="label-text"><strong>Work Experience</strong></div>
+            </div>
+          </li>
+
+          <li class="stop" data-target="game">
+            <div class="bike-dock"><div class="parking-spot" aria-hidden="true"></div></div>
+            <div class="stopgame-label">
+              <div class="icon" aria-hidden="true">🕹️</div>
+              <div class="label-text"><strong>Game Break</strong></div>
+            </div>
+          </li>
+
+          <li class="stop" data-target="badges">
+            <div class="bike-dock"><div class="parking-spot" aria-hidden="true"></div></div>
+            <div class="stop-label">
+              <div class="icon" aria-hidden="true">🏅</div>
+              <div class="label-text"><strong>Badges</strong></div>
+            </div>
+          </li>
+
+          <li class="stop" data-target="skills">
+            <div class="bike-dock"><div class="parking-spot" aria-hidden="true"></div></div>
+            <div class="stop-label">
+              <div class="icon" aria-hidden="true">🧰</div>
+              <div class="label-text"><strong>Skills</strong></div>
+            </div>
+          </li>
+
+          <li class="stop" data-target="interests">
+            <div class="bike-dock"><div class="parking-spot" aria-hidden="true"></div></div>
+            <div class="stop-label">
+              <div class="icon" aria-hidden="true">🎨</div>
+              <div class="label-text"><strong>Current Interests</strong></div>
+            </div>
+          </li>
+
+          <li class="stop" data-target="contact">
+            <div class="bike-dock"><div class="parking-spot" aria-hidden="true"></div></div>
+            <div class="stop-label">
+              <div class="icon" aria-hidden="true">📨</div>
+              <div class="label-text"><strong>Contact</strong></div>
+            </div>
+          </li>
+
+          <li class="stop" data-target="finish">
+            <div class="bike-dock"><div class="parking-spot" aria-hidden="true"></div></div>
+            <div class="stop-label">
+              <div class="icon" aria-hidden="true">🏁</div>
+              <div class="label-text"><strong>Thank You!</strong></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="ride-complete" id="rideComplete" aria-live="polite">
+        <div class="txt">Route Completed!</div>
+      </div>
+    </aside>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <main aria-label="Main information">
+      <div class="content">
+
+        <section class="section" id="education" aria-label="Education">
+          <h2>🎓 Education</h2>
+          <div class="subhead">New York University – Stern School of Business</div>
+          <div class="meta-line">New York, NY • Aug 2020 – May 2024</div>
+          <ul>
+            <li><strong>Bachelor of Science, Major in Finance, Minor in Math and Computer Science</strong></li>
+            <li><strong>GPA:</strong> 3.4/4.0</li>
+            <li><strong>Relevant Coursework:</strong> Decision Models &amp; Analytics, Financial Modeling, Equity Valuation, Securities Trading, Data Structures and Algorithms, Financial Statement Analysis, Real Estate Modeling</li>
+          </ul>
+        </section>
+
+        <section class="section" id="work-experience" aria-label="Work Experience">
+          <h2>💼 Work Experience</h2>
+
+          <div class="subhead">Deloitte — Technical Consultant</div>
+          <div class="meta-line">New York, NY • July 2024 – Present</div>
+          <ul>
+            <li>Was part of 3 $100M+ enterprise finance transformations/implementations across 4 waves from legacy platforms to SAP S/4HANA and Oracle Finance, supporting the finance and tax workstream’s solution architecture, test strategy, defect triage, cutover planning, and go-live deployment with cross-functional business and technical stakeholders from 80 global entities</li>
+            <li>Automated internal pricing simulation pipelines that ingest and validate user-uploaded inputs, orchestrate configurable procedures, generate standardized outputs to consumed by downstream ERP documents, order-to-cash and procure-to-pay processes, trade compliance, and audit validations</li>
+            <li>Implemented Snowflake query pipelines that automate transformations and query execution for 25  financial/compliance reports, supporting daily/hourly refresh cadence with consistent metrics, validation controls, and higher reporting uptime</li>
+            <li>Conducted integration and user acceptance testing with over 200 test cases, benchmarking system outputs against baseline financial models to validate completeness, consistency, and accuracy of migrated/processed data</li>
+            <li>Architected integration interfaces across 5  ERP engines/systems by defining data contracts, source-to-target mappings, reconciliation gates, and architecture documentation to support scalable, resilient cross-system production support</li>
+          </ul>
+
+          <div class="subhead">Apple — Technical Specialist</div>
+          <div class="meta-line">New York, NY • Dec 2023 – Jun 2024</div>
+          <ul>
+            <li>Diagnosed software issues for iOS, macOS, visionOS; isolated root causes via systematic reproduction steps and configuration checks while monitoring workflows by tracking software stability, device metrics, latency signals, and issue-resolution cycles</li>
+            <li>Supported Vision Pro launch readiness through hands-on device/software troubleshooting; escalated complex cases with structured diagnostics and clear repro notes</li>
+          </ul>
+
+          <div class="subhead">Deloitte — Intern</div>
+          <div class="meta-line">Jun 2023 – Aug 2023</div>
+          <ul>
+            <li>Built repeatable Alteryx ETL workflows supporting RSU and year-end tax reporting: standardized inputs, applied rule-based data quality checks, reconciled totals to source-of-truth, and generated governed reporting datasets</li>
+            <li>Supported ONESOURCE tax engine implementation/setup by coordinating requirements, assisting configuration/onboarding activities, and documenting process and data input expectations for stakeholders</li>
+          </ul>
+
+          <div class="subhead">Sony — Analyst</div>
+          <div class="meta-line">New York, NY • Jan 2023 – Jun 2023</div>
+          <ul>
+            <li>Standardized reporting and reconciliation processes by validating source data and benchmarking calculations to support finance teams; consolidated multiple data sources across entities and automated year-end financial reports</li>
+            <li>Evaluated and standardized tax reporting frameworks and reconciliation processes, improving the accuracy and consistency of financial and operational data across international subsidiaries</li>
+            <li>Conducted structured data reviews and benchmarking to validate tax provision calculations and support strategic decision-making within the Global Tax and M&amp;A teams</li>
+          </ul>
+        </section>
+
+        <section class="sectiongame" id="game" aria-label="Game Break">
+          <h2>🕹️ Game Break</h2>
+          <p class="desc">Let's take a quick break and play!</p>
+
+          <div class="game-wrap">
+            <canvas id="dinoGame" width="860" height="220" aria-label="Runner game canvas"></canvas>
+            <div class="game-hint" id="gameHint"> Let's play!</div>
+          </div>
+
+          <div class="game-controls" aria-label="Game speed control">
+            <label class="game-slider-label" for="speedSlider">
+              Speed: <span id="speedValue">1.0×</span>
+            </label>
+            <input
+              type="range"
+              id="speedSlider"
+              min="0.6"
+              max="2.2"
+              step="0.1"
+              value="1.0"
+              aria-label="Adjust game speed"
+            />
+          </div>
+        </section>
+
+        <section class="section" id="badges" aria-label="badges">
+          <h2>🏅 Badges</h2>
+          <div class="subhead">AWS Certified Cloud Practitioner</div>
+          <a class="start-btn tiny badge" href="https://www.credly.com/badges/9cc9dc68-8687-4acc-8c34-a1a976e540dd" target="_blank" rel="noreferrer">View badge ↗</a>
+          <div style="height:16px;"></div>
+          <div class="subhead">AWS Certified Solutions Architect – Associate</div>
+          <a class="start-btn tiny badge" href="https://www.credly.com/badges/152de3b4-a0cc-4e29-a752-c6419cce34f0" target="_blank" rel="noreferrer">View badge ↗</a>
+        </section>
+
+        <section class="section" id="skills" aria-label="Skills">
+          <h2>🧰 Technologies &amp; Skills</h2>
+          <div class="subhead">Technologies</div>
+          <ul>
+            <li>SAP S/4HANA, ECC, FICO Module</li>
+            <li>Alteryx, Power BI, Snowflake</li>
+          </ul>
+          <div class="subhead">Skills</div>
+          <ul>
+            <li>Business Process Optimization</li>
+            <li>Software Implementation &amp; Customization</li>
+            <li>Data Wrangling</li>
+          </ul>
+        </section>
+
+        <section class="section" id="interests" aria-label="Interests">
+          <h2>🎨 Interests</h2>
+          <ul>
+            <li>AWS Resilient and Secure Architecture</li>
+            <li>(Citi)Biking in NYC</li>
+            <li>Painting, Puzzles, Cross-stiching</li>
+            <li>Cooking, Baking</li>
+          </ul>
+        </section>
+
+        <section class="section" id="contact" aria-label="Contact">
+          <h2>📨 Contact</h2>
+          <ul>
+            <li>Email: <a href="mailto:quynhalicetran@gmail.com">quynhalicetran@gmail.com</a></li>
+            <li>LinkedIn: <a href="https://www.linkedin.com/in/quynhalicetran" target="_blank" rel="noreferrer">linkedin.com/in/quynhalicetran</a></li>
+            <li>GitHub: <a href="https://github.com/quynhalicetran" target="_blank" rel="noreferrer">github.com/quynhalicetran</a></li>
+          </ul>
+        </section>
+        <div class="meta-line">This is still a work-in-progress. I would appreciate any feedbacks or suggestions!</div>
+      </div>
+    </main>
+  </div>
+
+  <div id="finish" aria-hidden="true"></div>
+
+  <section class="finish-band" id="finishBand" aria-label="Thank you for the ride">
+    <div class="finish-panel">
+      <div class="flag" aria-hidden="true" style="font-size:62px; margin-bottom:12px;">🏁</div>
+      <h2 style="margin:0 0 8px; font-size:38px; font-weight:950; color: var(--blue); position:relative; z-index:1;">
+        Thank you for visiting
+      </h2>
+      <p class="sub">Hope you enjoyed the ride!</p>
+    </div>
+  </section>
+
+  <div class="toast" id="toast" aria-live="polite" aria-atomic="true">
+    <div class="bubble"><span>🚦</span><div id="toastText">Don’t skip stops.</div></div>
+  </div>
+
+  <div class="big-alert" id="bigAlert" aria-live="polite" aria-atomic="true" role="status">
+    <div class="big-alert-card">
+      <div class="big-alert-text" id="bigAlertText">Please don't skip stops</div>
+    </div>
+  </div>
+
+  <script>
+
+(function initLoader(){
+  const loader = document.getElementById("loader");
+  if (!loader) return;
+
+  const pctEl = document.getElementById("loaderPct");
+  const fillEl = document.getElementById("loaderFill");
+  const bikeEl = document.getElementById("loaderBike");
+  const obstacles = Array.from(loader.querySelectorAll(".loader-obstacle"));
+
+  let p = 0;
+  let done = false;
+  let lastBonk = new Set();
+
+  function clamp01(x){ return Math.max(0, Math.min(1, x)); }
+
+  function readyTarget(){
+    switch (document.readyState){
+      case "loading": return 0.35;
+      case "interactive": return 0.75;
+      case "complete": return 0.92;
+      default: return 0.35;
+    }
+  }
+
+  function render(){
+    const pct = Math.round(p * 100);
+    if (pctEl) pctEl.textContent = `${pct}%`;
+    if (fillEl) fillEl.style.width = `${pct}%`;
+    if (bikeEl){
+      bikeEl.style.left = `calc(14px + (${pct}% * (100% - 28px) / 100))`;
+    }
+
+    obstacles.forEach((o, i) => {
+      const at = parseFloat(o.getAttribute("data-at") || "0");
+      const passed = p >= at;
+      o.classList.toggle("passed", passed);
+
+      if (passed && !lastBonk.has(i)){
+        lastBonk.add(i);
+        o.classList.add("bonk");
+        setTimeout(() => o.classList.remove("bonk"), 220);
+      }
+      if (!passed && lastBonk.has(i)){
+        lastBonk.delete(i);
+      }
+    });
+  }
+
+  const t0 = performance.now();
+  function tick(t){
+    if (done) return;
+    const target = readyTarget();
+    const timeBoost = Math.min(0.9, (t - t0) / 1200) * 0.9;
+    const softTarget = Math.max(target, timeBoost);
+
+    p += (softTarget - p) * 0.08;
+    p = clamp01(p);
+
+    render();
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+
+  window.addEventListener("load", () => {
+    let i = 0;
+    const fin = setInterval(() => {
+      i++;
+      p = clamp01(p + 0.06);
+      render();
+      if (p >= 1 || i > 40){
+        clearInterval(fin);
+        done = true;
+        loader.classList.add("hide");
+        document.body.classList.remove("is-loading");
+        setTimeout(() => loader.remove(), 450);
+      }
+    }, 16);
+  }, { once: true });
+})();
+
+const route = [
+  { id: "education", title: "Education" },
+  { id: "work-experience", title: "Work Experience" },
+  { id: "game", title: "Game Break" },
+  { id: "badges", title: "Badges" },
+  { id: "skills", title: "Skills" },
+  { id: "interests", title: "Interests" },
+  { id: "contact", title: "Contact" },
+  { id: "finish", title: "Finish" }
+];
+(function setTopbarHeightVar(){
+  const topbar = document.querySelector(".topbar");
+  if (!topbar) return;
+
+  function update(){
+    const h = Math.ceil(topbar.getBoundingClientRect().height);
+    document.documentElement.style.setProperty("--topbarH", `${h}px`);
+  }
+
+  update();
+  window.addEventListener("resize", update);
+  window.addEventListener("load", update);
+})();
+
+const routeBoard = document.getElementById("routeBoard");
+const stops = Array.from(document.querySelectorAll(".stop"));
+const stopsUl = document.getElementById("stops");
+const bike = document.getElementById("bike");
+const sidebar = document.getElementById("sidebar");
+const finishBand = document.getElementById("finishBand");
+
+const toast = document.getElementById("toast");
+const toastText = document.getElementById("toastText");
+const bigAlert = document.getElementById("bigAlert");
+const bigAlertText = document.getElementById("bigAlertText");
+
+const sections = route.map(r => document.getElementById(r.id));
+
+const idToIndex = new Map(route.map((r, i) => [r.id, i]));
+const targetToIndex = new Map(stops.map((el, i) => [el.getAttribute("data-target"), i]));
+
+function getStickyOffset(){
+  const root = document.documentElement;
+  const stickTop = getComputedStyle(root).getPropertyValue("--stickTop").trim();
+  const n = parseFloat(stickTop);
+  return Number.isFinite(n) ? n : 96;
+}
+
+
+function scrollToSectionWithOffset(el){
+  if (!el) return;
+  const y = window.pageYOffset + el.getBoundingClientRect().top - getStickyOffset() - 8;
+  window.scrollTo({ top: y, behavior: "smooth" });
+}
+
+function ensureStopVisible(idx){
+  if (!stopsUl) return;
+  if (stopsUl.scrollWidth <= stopsUl.clientWidth + 2) return; // not scrollable -> desktop
+
+  const item = stops[idx];
+  if (!item) return;
+
+  const itemRect = item.getBoundingClientRect();
+  const boxRect = stopsUl.getBoundingClientRect();
+  const delta = (itemRect.left - boxRect.left) - (boxRect.width/2 - itemRect.width/2);
+
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  stopsUl.scrollBy({ left: delta, behavior: reduced ? "auto" : "smooth" });
+}
+
+let dockedIndex = 0;
+let activeIndex = 0;
+let navLockIndex = null;
+let finishLocked = false;
+
+let toastTimer = null;
+let bigAlertTimer = null;
+
+let boardCenters = [];
+
+let bikePos = { x: -9999, y: -9999 };
+let bikeTarget = { x: -9999, y: -9999 };
+let bikeAnimating = false;
+
+let dragging = false;
+let dragOffset = { x: 0, y: 0 };
+
+let scrollRAF = null;
+
+let BIKE_SIZE = 52;
+function updateBikeSize(){
+  const w = bike?.getBoundingClientRect().width;
+  BIKE_SIZE = Math.round(w || 52);
+}
+
+function showToast(msg = "Don't skip stops.", big = false) {
+  toastText.textContent = msg;
+  toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove("show"), big ? 2000 : 1400);
+}
+
+function showBigMessage(msg, variant = "warn") {
+  bigAlertText.textContent = msg;
+  bigAlert.classList.toggle("danger", variant === "danger");
+  bigAlert.classList.add("show");
+
+  clearTimeout(bigAlertTimer);
+  bigAlertTimer = setTimeout(() => {
+    bigAlert.classList.remove("show");
+  }, 1800);
+}
+
+function setDangerMode(on){
+  sidebar.classList.toggle("is-danger", !!on);
+}
+
+function isSkipAttempt(fromIdx, toIdx){
+  return Math.abs(toIdx - fromIdx) > 1;
+}
+
+function setActive(idx) {
+  activeIndex = idx;
+  stops.forEach((s, i) => s.classList.toggle("is-active", i === idx));
+  ensureStopVisible(idx);
+}
+
+function updateParkingSpots(){
+  stops.forEach((stop, i) => {
+    const dock = stop.querySelector(".bike-dock");
+    if (!dock) return;
+    dock.classList.toggle("has-bike", i === dockedIndex);
+  });
+}
+
+function setDocked(idx) {
+  dockedIndex = idx;
+  stops.forEach((s, i) => s.classList.toggle("is-docked", i === idx));
+  updateParkingSpots();
+}
+
+function setFinishMode(on){
+  sidebar.classList.toggle("is-finish", !!on);
+}
+
+function computeDockCenters(){
+  if (!routeBoard) return;
+  const boardRect = routeBoard.getBoundingClientRect();
+
+  boardCenters = stops.map(stop => {
+    const dock = stop.querySelector(".bike-dock");
+    const r = dock.getBoundingClientRect();
+
+    const cx = (r.left - boardRect.left) + (r.width / 2);
+    const cy = (r.top  - boardRect.top)  + (r.height / 2);
+    return { cx, cy };
+  });
+}
+
+function renderBike(){
+  bike.style.transform = `translate3d(${bikePos.x}px, ${bikePos.y}px, 0)`;
+}
+
+let lastAnimT = 0;
+
+function animateBike(t){
+  bikeAnimating = true;
+  if (!lastAnimT) lastAnimT = t;
+
+  const dt = Math.min(32, t - lastAnimT);
+  lastAnimT = t;
+
+  const k = 18; 
+  const alpha = 1 - Math.exp(-k * dt / 1000);
+
+  bikePos.x += (bikeTarget.x - bikePos.x) * alpha;
+  bikePos.y += (bikeTarget.y - bikePos.y) * alpha;
+
+  renderBike();
+
+  if (Math.abs(bikeTarget.x - bikePos.x) < 0.15 && Math.abs(bikeTarget.y - bikePos.y) < 0.15){
+    bikePos.x = bikeTarget.x;
+    bikePos.y = bikeTarget.y;
+    renderBike();
+    bikeAnimating = false;
+    lastAnimT = 0;
+    return;
+  }
+
+  requestAnimationFrame(animateBike);
+}
+
+
+function setBikeTargetTopLeft(x, y){
+  bikeTarget.x = x;
+  bikeTarget.y = y;
+  if (!bikeAnimating) requestAnimationFrame(animateBike);
+}
+
+
+function dockBikeAtIndex(idx, {instant=false} = {}){
+  if (!boardCenters.length) return;
+  setActive(idx);
+  setDocked(idx);
+
+  const c = boardCenters[idx];
+  const targetX = c.cx - (BIKE_SIZE / 2);
+  const targetY = c.cy - (BIKE_SIZE / 2);
+
+  if (instant){
+    bikePos.x = targetX;
+    bikePos.y = targetY;
+    bikeTarget.x = targetX;
+    bikeTarget.y = targetY;
+    renderBike();
+    bikeAnimating = false;
+    return;
+  }
+  setBikeTargetTopLeft(targetX, targetY);
+}
+
+function getIndexByScroll(){
+  const snap = getStickyOffset() + 10;
+  let a = 0;
+
+  for (let i = 0; i < sections.length; i++){
+    const el = sections[i];
+    if (!el) continue;
+    const rect = el.getBoundingClientRect();
+    if (rect.top <= snap) a = i;
+  }
+  return a;
+}
+
+function atFinish(){
+  const doc = document.documentElement;
+  const nearBottom = (window.scrollY + window.innerHeight) >= (doc.scrollHeight - 8);
+  const finishEl = document.getElementById("finish");
+  const off = getStickyOffset();
+  const finishHitLine = !!finishEl && finishEl.getBoundingClientRect().top <= (off + 10);
+  const bandInView = !!finishBand && finishBand.getBoundingClientRect().top <= (window.innerHeight * 0.85);
+  return nearBottom || finishHitLine || bandInView;
+}
+
+function syncDockFromScroll(){
+  if (!document.body.classList.contains("ride-started")) return;
+  if (dragging) return;
+
+  setDangerMode(false);
+
+  computeDockCenters();
+  if (!boardCenters.length) return;
+
+  const finished = atFinish();
+  const lastIdx = route.length - 1;
+
+  if (finished){
+    finishLocked = true;
+    setFinishMode(true);
+    navLockIndex = lastIdx;
+    dockBikeAtIndex(lastIdx);
+    return;
+  }
+
+  if (finishLocked && !finished){
+    finishLocked = false;
+    setFinishMode(false);
+    navLockIndex = null;
+  } else {
+    setFinishMode(false);
+  }
+
+  if (navLockIndex !== null){
+    dockBikeAtIndex(navLockIndex);
+    if (getIndexByScroll() === navLockIndex){
+      navLockIndex = null;
+    }
+    return;
+  }
+
+  dockBikeAtIndex(getIndexByScroll());
+}
+
+function bindSidebarClicks(){
+  stops.forEach((stopEl) => {
+    stopEl.addEventListener("click", (e) => {
+      if (!document.body.classList.contains("ride-started")) return;
+
+      e.preventDefault();
+      const target = stopEl.getAttribute("data-target");
+      const idx = targetToIndex.get(target);
+      if (typeof idx !== "number") return;
+
+      if (isSkipAttempt(dockedIndex, idx)){
+        showBigMessage("Please don't skip stops", "warn");
+        return;
+      }
+
+      navLockIndex = idx;
+      finishLocked = false;
+      setFinishMode(false);
+
+      computeDockCenters();
+      dockBikeAtIndex(idx);
+      scrollToSectionWithOffset(sections[idx]);
+    });
+  });
+}
+
+function bindNavButtons(){
+  document.querySelectorAll('a[data-nav]').forEach((a) => {
+    a.addEventListener("click", (e) => {
+      if (!document.body.classList.contains("ride-started")){
+        startRide(false);
+      }
+      e.preventDefault();
+      const id = a.getAttribute("data-nav");
+      const idx = idToIndex.get(id);
+      if (typeof idx !== "number") return;
+
+      navLockIndex = idx;
+      finishLocked = false;
+      setFinishMode(false);
+
+      computeDockCenters();
+      dockBikeAtIndex(idx);
+      scrollToSectionWithOffset(sections[idx]);
+    });
+  });
+}
+
+function startRide(scrollToEducation = true){
+  document.body.classList.add("ride-started");
+
+  requestAnimationFrame(() => {
+    dockedIndex = 0;
+    activeIndex = 0;
+    navLockIndex = null;
+    finishLocked = false;
+    setFinishMode(false);
+    setDangerMode(false);
+
+    updateBikeSize();
+    computeDockCenters();
+    dockBikeAtIndex(0, {instant:true});
+syncDockFromScroll();
+syncIntroVisibility();
+
+    if (scrollToEducation){
+      navLockIndex = 0;
+      scrollToSectionWithOffset(sections[0]); 
+    }
+  });
+}
+
+function getNearestDockIndexFromBikeTopLeft(x, y){
+  const cx = x + (BIKE_SIZE / 2);
+  const cy = y + (BIKE_SIZE / 2);
+
+  let best = 0;
+  let bestD = Infinity;
+  for (let i = 0; i < boardCenters.length; i++){
+    const dx = boardCenters[i].cx - cx;
+    const dy = boardCenters[i].cy - cy;
+    const d = dx*dx + dy*dy;
+    if (d < bestD){
+      bestD = d;
+      best = i;
+    }
+  }
+  return best;
+}
+
+function markDropTarget(idx){
+  stops.forEach((s,i)=> s.classList.toggle("is-drop-target", i === idx));
+}
+
+bike.addEventListener("pointerdown", (e) => {
+  if (!document.body.classList.contains("ride-started")) return;
+
+  dragging = true;
+  bike.classList.add("dragging");
+  bike.setPointerCapture(e.pointerId);
+
+  const bikeRect = bike.getBoundingClientRect();
+  dragOffset.x = (e.clientX - bikeRect.left);
+  dragOffset.y = (e.clientY - bikeRect.top);
+
+  navLockIndex = null;
+  finishLocked = false;
+  setFinishMode(false);
+
+  setDangerMode(false);
+
+  computeDockCenters();
+  markDropTarget(dockedIndex);
+});
+
+bike.addEventListener("pointermove", (e) => {
+  if (!dragging) return;
+
+  const boardRect = routeBoard.getBoundingClientRect();
+  const rawX = (e.clientX - boardRect.left) - dragOffset.x;
+  const rawY = (e.clientY - boardRect.top)  - dragOffset.y;
+
+  const maxX = boardRect.width  - BIKE_SIZE;
+  const maxY = boardRect.height - BIKE_SIZE;
+
+  const clampedX = Math.min(Math.max(rawX, 0), maxX);
+  const clampedY = Math.min(Math.max(rawY, 0), maxY);
+
+  const outOfLane = (rawX !== clampedX) || (rawY !== clampedY);
+
+  if (outOfLane){
+    if (!sidebar.classList.contains("is-danger")){
+      showBigMessage("Dangerous! Stay in your bike lane!", "danger");
+    }
+    setDangerMode(true);
+  } else {
+    setDangerMode(false);
+  }
+
+  setBikeTargetTopLeft(clampedX, clampedY);
+
+  computeDockCenters();
+  const near = getNearestDockIndexFromBikeTopLeft(clampedX, clampedY);
+  markDropTarget(near);
+});
+
+function endDrag(e){
+  if (!dragging) return;
+  dragging = false;
+  bike.classList.remove("dragging");
+
+  setDangerMode(false);
+  computeDockCenters();
+
+  const boardRect = routeBoard.getBoundingClientRect();
+  const rawX = (e.clientX - boardRect.left) - dragOffset.x;
+  const rawY = (e.clientY - boardRect.top)  - dragOffset.y;
+
+  const maxX = boardRect.width  - BIKE_SIZE;
+  const maxY = boardRect.height - BIKE_SIZE;
+
+  const x = Math.min(Math.max(rawX, 0), maxX);
+  const y = Math.min(Math.max(rawY, 0), maxY);
+
+  const idx = getNearestDockIndexFromBikeTopLeft(x, y);
+
+  if (isSkipAttempt(dockedIndex, idx)){
+    showBigMessage("Please don't skip stops", "warn");
+    dockBikeAtIndex(dockedIndex);
+    navLockIndex = dockedIndex;
+
+    setTimeout(() => stops.forEach(s => s.classList.remove("is-drop-target")), 450);
+    return;
+  }
+
+  dockBikeAtIndex(idx);
+  navLockIndex = idx;
+
+  finishLocked = false;
+  setFinishMode(false);
+
+  scrollToSectionWithOffset(sections[idx]);
+
+  setTimeout(() => stops.forEach(s => s.classList.remove("is-drop-target")), 450);
+}
+
+bike.addEventListener("pointerup", endDrag);
+bike.addEventListener("pointercancel", endDrag);
+
+let stopsScrollRAF = null;
+if (stopsUl){
+  stopsUl.addEventListener("scroll", () => {
+    if (!document.body.classList.contains("ride-started")) return;
+    if (dragging) return;
+    if (stopsScrollRAF) return;
+
+    stopsScrollRAF = requestAnimationFrame(() => {
+      stopsScrollRAF = null;
+      computeDockCenters();
+      const c = boardCenters[dockedIndex];
+      if (!c) return;
+
+      const targetX = c.cx - (BIKE_SIZE / 2);
+      const targetY = c.cy - (BIKE_SIZE / 2);
+
+      bikePos.x = targetX;
+      bikePos.y = targetY;
+      bikeTarget.x = targetX;
+      bikeTarget.y = targetY;
+      renderBike();
+    });
+  }, { passive: true });
+}
+
+document.getElementById("startRideBtn").addEventListener("click", (e) => {
+  e.preventDefault();
+  startRide(true);
+});
+
+bindSidebarClicks();
+bindNavButtons();
+
+window.addEventListener("scroll", () => {
+  if (!document.body.classList.contains("ride-started")) return;
+  if (scrollRAF) return;
+  scrollRAF = requestAnimationFrame(() => {
+    scrollRAF = null;
+    syncDockFromScroll();
+  });
+}, { passive: true });
+
+window.addEventListener("resize", () => {
+  if (!document.body.classList.contains("ride-started")) return;
+  updateBikeSize();
+  computeDockCenters();
+  dockBikeAtIndex(dockedIndex, {instant:true});
+  syncDockFromScroll();
+});
+
+(function initDinoGame(){
+  const canvas = document.getElementById("dinoGame");
+  const hint = document.getElementById("gameHint");
+  if (!canvas) return;
+
+  const speedSlider = document.getElementById("speedSlider");
+  const speedValue = document.getElementById("speedValue");
+
+  const ctx = canvas.getContext("2d", { alpha: true });
+  if (!ctx) return;
+
+  const cssW = canvas.width;
+  const cssH = canvas.height;
+  const DPR = Math.max(1, Math.min(2.5, window.devicePixelRatio || 1));
+  canvas.style.width = cssW + "px";
+  canvas.style.height = cssH + "px";
+  canvas.width = Math.round(cssW * DPR);
+  canvas.height = Math.round(cssH * DPR);
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+
+  const W = cssW;
+  const H = cssH;
+
+  ctx.imageSmoothingEnabled = true;
+  ctx.textRendering = "geometricPrecision";
+
+  const bikeSvg = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+      <circle cx="32" cy="32" r="28" fill="rgba(255,255,255,0.94)" stroke="rgba(11,42,60,0.22)" stroke-width="2"/>
+      <path d="M18 44a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm28 0a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"
+            fill="none" stroke="#0B2A3C" stroke-width="3"/>
+      <path d="M26 20h12l6 12H32l-6 18" fill="none" stroke="#0B2A3C" stroke-width="3"
+            stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M38 20h10" fill="none" stroke="#0B2A3C" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="18" cy="36" r="2" fill="#00A9E0"/>
+      <circle cx="46" cy="36" r="2" fill="#00A9E0"/>
+    </svg>
+  `.trim();
+
+  const bikeImg = new Image();
+  bikeImg.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(bikeSvg);
+
+  let running = false;
+  let started = false;
+  let gameOver = false;
+
+  let score = 0;
+  let hiScore = 0;
+
+  const groundY = H - 34;
+  const gravity = 0.85;
+  const jumpVel = -13.2;
+
+  const player = { x: 70, y: groundY, w: 52, h: 52, vy: 0, onGround: true };
+
+  const obstacleTypes = [
+    { emoji: "🐀", size: 48, yMode: "ground" },
+    { emoji: "🚕", size: 50, yMode: "ground" },
+    { emoji: "🐦", size: 46, yMode: "air" }
+  ];
+
+  let speed = 7.2;
+  let speedMult = 1.0;
+  let distanceToNext = 260;
+  const obstacles = [];
+
+  const clouds = Array.from({length: 4}).map((_,i)=>({ x: 160 + i*220, y: 30 + (i%2)*18, s: 0.35 + (i%3)*0.08 }));
+
+  function rand(min, max){ return min + Math.random() * (max - min); }
+  function updateSpeedUI(){ if (speedValue) speedValue.textContent = `${speedMult.toFixed(1)}×`; }
+  if (speedSlider){
+    speedSlider.addEventListener("input", () => {
+      speedMult = parseFloat(speedSlider.value) || 1.0;
+      updateSpeedUI();
+    });
+  }
+  updateSpeedUI();
+
+  function showHint(text){ if (!hint) return; hint.textContent = text; hint.classList.add("show"); }
+  function hideHint(){ if (!hint) return; hint.classList.remove("show"); }
+
+  function reset(){
+    running = false; started = false; gameOver = false; score = 0;
+    speed = 6.2; distanceToNext = 260; obstacles.length = 0;
+    player.y = groundY; player.vy = 0; player.onGround = true;
+    showHint("Press Space/↑ or Tap/Click the screen");
+    draw();
+  }
+
+  function start(){ if (gameOver) return; started = true; running = true; hideHint(); }
+  function restart(){ reset(); start(); }
+  function jump(){
+    if (!started) start();
+    if (gameOver) { restart(); return; }
+    if (player.onGround){ player.vy = jumpVel; player.onGround = false; }
+  }
+
+  function addObstacle(){
+    const t = obstacleTypes[Math.floor(Math.random() * obstacleTypes.length)];
+    const size = t.size;
+    let bottomY = groundY + 18;
+    if (t.yMode === "air"){ bottomY = (groundY + 18) - rand(36, 58); }
+    obstacles.push({
+      x: W + 20, bottomY, emoji: t.emoji, size, w: size, h: size,
+      bobAmp: rand(2.0, 5.0), bobSpeed: rand(0.05, 0.09), bobPhase: rand(0, Math.PI * 2)
+    });
+  }
+
+  function collides(ax, ay, aw, ah, bx, by, bw, bh){
+    return (ax < bx + bw && ax + aw > bx && ay < by + bh && ay + ah > by);
+  }
+
+  function drawGround(){
+    ctx.fillStyle = "rgba(11,42,60,0.22)";
+    ctx.fillRect(0, groundY + 18, W, 2);
+    ctx.fillStyle = "rgba(11,42,60,0.22)";
+    for (let i = 0; i < 40; i++){
+      const x = (i * 28 + (score*2)) % (W + 28) - 28;
+      ctx.fillRect(x, groundY + 21, 10, 2);
+    }
+  }
+
+  function drawClouds(){
+    ctx.fillStyle = "rgba(11,42,60,0.10)";
+    clouds.forEach(c=>{
+      ctx.beginPath();
+      ctx.ellipse(c.x, c.y, 16, 8, 0, 0, Math.PI*2);
+      ctx.ellipse(c.x+14, c.y+2, 13, 7, 0, 0, Math.PI*2);
+      ctx.ellipse(c.x-14, c.y+2, 13, 7, 0, 0, Math.PI*2);
+      ctx.fill();
+    });
+  }
+
+  function drawPlayer(){
+    const drawX = player.x;
+    const drawY = player.y - player.h;
+    const imgOk = bikeImg.complete && bikeImg.naturalWidth > 0;
+    if (!imgOk){
+      ctx.fillStyle = "rgba(11,42,60,0.85)";
+      ctx.fillRect(drawX, drawY, player.w, player.h);
+      return;
+    }
+    ctx.drawImage(bikeImg, drawX, drawY, player.w, player.h);
+  }
+
+  function drawEmojiPopping(emoji, x, bottomY, size, bobOffset, glowStrength){
+    const y = bottomY - bobOffset;
+
+    const shadowW = size * 0.62;
+    const shadowH = Math.max(6, size * 0.14);
+    const shadowX = x + size * 0.5;
+    const shadowY = bottomY + 3;
+    ctx.save();
+    ctx.globalAlpha = 0.22;
+    ctx.fillStyle = "rgba(11,42,60,0.85)";
+    ctx.beginPath();
+    ctx.ellipse(shadowX, shadowY, shadowW/2, shadowH/2, 0, 0, Math.PI*2);
+    ctx.fill();
+    ctx.restore();
+
+    const font = `${size}px system-ui, Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji`;
+    ctx.textBaseline = "bottom";
+    ctx.textAlign = "left";
+    ctx.font = font;
+
+    ctx.save();
+    ctx.lineWidth = Math.max(5, Math.round(size * 0.14));
+    ctx.strokeStyle = "rgba(11,42,60,0.92)";
+    ctx.strokeText(emoji, x, y);
+    ctx.restore();
+
+    ctx.save();
+    ctx.lineWidth = Math.max(2, Math.round(size * 0.06));
+    ctx.strokeStyle = "rgba(255,255,255,0.95)";
+    ctx.strokeText(emoji, x, y);
+    ctx.restore();
+
+    ctx.save();
+    ctx.shadowColor = "rgba(0,169,224,0.55)";
+    ctx.shadowBlur = glowStrength;
+    ctx.fillText(emoji, x, y);
+    ctx.restore();
+
+    ctx.save();
+    ctx.shadowBlur = 0;
+    ctx.fillText(emoji, x, y);
+    ctx.restore();
+  }
+
+  function drawObstacles(){
+    const t = performance.now();
+    obstacles.forEach(o=>{
+      const bob = Math.sin(t * o.bobSpeed + o.bobPhase) * o.bobAmp;
+      const glow = Math.min(22, 12 + (speed * 0.7));
+      drawEmojiPopping(o.emoji, o.x, o.bottomY, o.size, bob, glow);
+    });
+  }
+
+  function drawHUD(){
+    ctx.fillStyle = "rgba(11,42,60,0.78)";
+    ctx.font = "16px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace";
+    ctx.fillText(`Score: ${Math.floor(score)}`, 16, 22);
+    ctx.fillText(`Hi: ${Math.floor(hiScore)}`, 140, 22);
+
+if (gameOver){
+  const title = "Game Over";
+  const sub = "but you can restart";
+
+  const cx = W / 2;
+  const cy = H / 2;
+  const titleFont = "28px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace";
+  const subFont   = "16px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace";
+
+  ctx.save();
+  ctx.font = titleFont;
+  const titleW = ctx.measureText(title).width;
+  ctx.font = subFont;
+  const subW = ctx.measureText(sub).width;
+  const maxTextW = Math.max(titleW, subW);
+
+  const padX = 36;
+  const padY = 20;
+  const gap = 12;
+  const titleH = 34; 
+  const subH = 22;
+
+  const boxW = Math.min(W - 40, maxTextW + padX * 2);
+  const boxH = padY * 2 + titleH + gap + subH;
+
+  const boxX = cx - boxW / 2;
+  const boxY = cy - boxH / 2;
+
+  function roundRect(x, y, w, h, r){
+    r = Math.min(r, w/2, h/2);
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+
+  roundRect(boxX, boxY, boxW, boxH, 18);
+  ctx.fillStyle = "rgba(255,255,255,0.95)";
+  ctx.strokeStyle = "rgba(11,42,60,0.25)";
+  ctx.lineWidth = 3;
+  ctx.fill();
+  ctx.stroke();
+
+  ctx.textAlign = "center";
+  ctx.textBaseline = "top";
+
+  ctx.fillStyle = "rgba(11,42,60,0.86)";
+  ctx.font = titleFont;
+  ctx.fillText(title, cx, boxY + padY);
+
+  ctx.fillStyle = "rgba(11,42,60,0.72)";
+  ctx.font = subFont;
+  ctx.fillText(sub, cx, boxY + padY + titleH + gap);
+
+  ctx.restore();
+}
+
+
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    drawClouds();
+    drawGround();
+    drawObstacles();
+    drawPlayer();
+    drawHUD();
+  }
+
+  function step(){
+    if (!running){
+      draw();
+      requestAnimationFrame(step);
+      return;
+    }
+
+    score += 0.16 * speedMult;
+    speed += 0.0015 * speedMult;
+
+    clouds.forEach(c=>{
+      c.x -= (0.35 + c.s) * speedMult;
+      if (c.x < -40) c.x = W + 60;
+    });
+
+    player.vy += gravity;    player.y += player.vy;
+    if (player.y >= groundY){
+      player.y = groundY;
+      player.vy = 0;
+      player.onGround = true;
+    }
+
+    distanceToNext -= (speed * speedMult);
+    if (distanceToNext <= 0){
+      addObstacle();
+      const minGap = 180 + speed * 10;
+      const maxGap = 420 + speed * 16;
+      distanceToNext = rand(minGap, maxGap);
+    }
+
+    for (let i = obstacles.length - 1; i >= 0; i--){
+      obstacles[i].x -= (speed * speedMult);
+      if (obstacles[i].x < -100) obstacles.splice(i,1);
+    }
+    const px = player.x + 10;
+    const py = (player.y - player.h) + 10;
+    const pw = player.w - 20;
+    const ph = player.h - 16;
+
+    for (const o of obstacles){
+      const ox = o.x + 8;
+      const oy = (o.bottomY - o.h) + 8;
+      const ow = o.w - 16;
+      const oh = o.h - 16;
+
+      if (collides(px, py, pw, ph, ox, oy, ow, oh)){
+        gameOver = true;
+        running = false;
+        hiScore = Math.max(hiScore, score);
+        break;
+      }
+    }
+
+    hiScore = Math.max(hiScore, score);
+    draw();
+    requestAnimationFrame(step);
+  }
+
+  let gameSectionVisible = false;
+  const gameSection = document.getElementById("game");
+  if (gameSection){
+    const io = new IntersectionObserver((entries)=>{
+      gameSectionVisible = entries.some(e=>e.isIntersecting);
+    }, { threshold: 0.25 });
+    io.observe(gameSection);
+  } else {
+    gameSectionVisible = true;
+  }
+
+  function onKeyDown(e){
+    if (!gameSectionVisible) return;
+    if (e.code === "Space" || e.code === "ArrowUp"){
+      e.preventDefault();
+      jump();
+    }
+    if (e.code === "KeyR"){
+      e.preventDefault();
+      restart();
+    }
+  }
+
+  function onPointer(){
+    if (!gameSectionVisible) return;
+    jump();
+  }
+
+  window.addEventListener("keydown", onKeyDown);
+  canvas.addEventListener("pointerdown", onPointer);
+
+  reset();
+  requestAnimationFrame(step);
+})();
+
+function syncIntroVisibility(){
+  if (!document.body.classList.contains("ride-started")) return;
+  const show = window.scrollY <= 40;
+  document.body.classList.toggle("show-intro", show);
+}
+
+  </script>
+</body>
+</html>
