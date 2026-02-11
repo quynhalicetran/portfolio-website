@@ -32,7 +32,7 @@
 
       --card-grad: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.90));
       --sidebar-grad: linear-gradient(180deg, rgba(0,169,224,1), rgba(0,169,224,1));
-      --sidebar-finish-grad: linear-gradient(180deg, rgba(45,190,96,0.98), rgba(45,190,96,0.86));
+      --sidebar-finish-grad: linear-gradient(180deg, rgba(45,190,96,1), rgba(45,190,96,1));
 
       --label-grad: linear-gradient(180deg, rgba(11,42,60,0.16), rgba(11,42,60,0.10));
       --label-active-grad: linear-gradient(180deg, rgba(255,255,255,0.28), rgba(255,255,255,0.18));
@@ -163,8 +163,14 @@ body{
       padding: 18px 0 10px;
       position: relative;
       z-index: 3;
+      gap: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: flex-start;
     }
-    body.ride-started .start-wrap-outer{ padding-bottom: 24px; }
+    body.ride-started .start-wrap-outer{ padding-bottom: 18px; }
 
     .start-panel{
       border-radius: 14px;
@@ -173,11 +179,10 @@ body{
       padding: 22px 22px 18px;
       box-shadow: var(--shadow-card);
       position: relative;
-      overflow: hidden;
     }
 
     .start-hero{
-      display: grid;
+      display: flex;
       grid-template-columns: 140px 1fr;
       gap: 18px;
       align-items: center;
@@ -187,7 +192,6 @@ body{
       width: 140px;
       height: 140px;
       border-radius: 999px;
-      overflow: hidden;
       border: 1px solid rgba(0,0,0,0.12);
       background: rgba(255,255,255,0.7);
       box-shadow: 0 12px 24px rgba(11,42,60,0.10);
@@ -198,11 +202,12 @@ body{
       height: 100%;
       object-fit: cover;
       display: block;
+      border-radius: 999px;
     }
 
     @media (max-width: 700px){
       .start-hero{ grid-template-columns: 1fr; }
-      .headshot-wrap{ width: 120px; height: 120px; }
+      .headshot-wrap{ width: 180px; height: 120px; }
     }
 
     .start-panel::before{
@@ -220,7 +225,7 @@ body{
     .layout{
       width: min(1260px, 92vw);
       margin: 0 auto;
-      padding: 14px 0 44px;
+      padding: 0px 0 44px;
       display:grid;
       grid-template-columns: minmax(295px, 330px) 42px 1fr;
       align-items:start;
@@ -270,7 +275,6 @@ body{
       position: sticky;
   top: var(--stickTop) !important;
       border-radius: 14px;
-      overflow:hidden;
       border: 3px solid var(--blue-deep);
       background: var(--sidebar-grad);
       color: var(--white);
@@ -293,7 +297,7 @@ body{
 
     .sidebar.is-finish{
       background: var(--sidebar-finish-grad);
-      border-color: rgba(255,255,255,0.65);
+      border-color: rgba(255,255,255,1);
     }
 
     .sidebar.is-danger{
@@ -372,7 +376,7 @@ body{
       overflow: hidden;
       padding: 12px;
 
-      --dock-col: 68px;
+      --dock-col: 48px;
       --lane-x: calc(12px + (var(--dock-col) / 2));
     }
     @media (max-width: 1100px){
@@ -580,6 +584,18 @@ body{
       position: relative;
       overflow: hidden;
     }
+
+    section.contacts{
+      scroll-margin-top: 92px;
+      border-radius: 14px;
+      border: 3px dashed var(--blue-deep);
+      background: var(--card-grad);
+      padding: 28px;
+      box-shadow: var(--shadow-chip);
+      position: relative;
+      overflow: hidden;
+    }
+
     section.sectiongame{
       scroll-margin-top: 92px;
       border-radius: 14px;
@@ -619,6 +635,11 @@ body{
       color: rgba(11,27,42,0.92);
       font-weight: 950;
     }
+    subheadsub{
+      font-size: 16px;
+      color: rgba(11,27,42,0.75);
+      font-weight: 800;
+    }
     .meta-line{
       margin: 0 0 10px;
       color: rgba(11,27,42,0.70);
@@ -633,7 +654,7 @@ body{
       font-size: 16px;
     }
     ul{ margin:0; padding-left: 18px; }
-    li{ margin: 8px 0; line-height: 1.55; font-size: 15px; }
+    li{ margin: 8px 0; line-height: 1.55; font-size: 14px; }
 
     .start-actions{
       display:flex;
@@ -783,6 +804,13 @@ body.ride-started:not(.show-intro) .start-panel{
         linear-gradient(-45deg, transparent 75%, #000 75%);
       background-size: 36px 36px;
       background-position: 0 0, 0 18px, 18px -18px, -18px 0;
+    }
+
+    .sidebar-band{
+      width: 100%;
+      position: relative;
+      z-index: 3;
+      background-color: #fff;
     }
 
     body:not(.ride-started) .finish-band{ display:none; }
@@ -1011,28 +1039,34 @@ body.ride-started:not(.show-intro) .start-panel{
 
     @media (max-width: 1100px){
 
+      li { font-size: 13px; }
+      h2 { font-size: 18px; }
+      .subhead { font-size: 16px; }
+
       .sidebar{
         top: 56px;
         z-index: 9998;
         padding: 10px;
         gap: 8px;
         height: clamp(150px, 18vh, 190px);
+        overflow: hidden;
       }
 
       .side-head{
         padding: 0 0 6px;
       }
       .side-head p{ display:none; }
-      .drag-big{ width: 44px; height: 44px; }
+      .drag-big{ width: 36px; height: 36px; }
       .drag-icon-img{ width: 26px; height: 26px; }
-      .side-title-row .subhead{ font-size: 18px; }
+      .side-title-row .subhead{ font-size: 16px;}
+      .side-title-row .subheadsub{ font-size: 10px;}
 
       .route-board{
         flex: 1 1 auto;
         height: auto;
-        padding: 10px;
+        padding: 6px;
 
-        --dock-col: 56px;
+        --dock-col: 46px;
         --lane-y: calc(10px + (var(--dock-col) / 2));
       }
 
@@ -1066,7 +1100,7 @@ body.ride-started:not(.show-intro) .start-panel{
       .stop{
         grid-template-columns: 1fr;
         grid-template-rows: var(--dock-col) 1fr;
-        gap: 6px;
+        gap: 3px;
         min-height: 0;
         flex: 0 0 calc((100% - 16px) / 3);
         scroll-snap-align: center;
@@ -1088,7 +1122,7 @@ body.ride-started:not(.show-intro) .start-panel{
 }
 
 .sidebar{
-  height: clamp(210px, 26vh, 290px);
+  height: clamp(210px, 24vh, 290px);
 }
 
 .route-board{
@@ -1116,8 +1150,8 @@ body.ride-started:not(.show-intro) .start-panel{
   display: grid;
   place-items: center;
 
-  width: 26px;
-  height: 26px;
+  width: 30px;
+  height: 30px;
   border-radius: 999px;
 
   background: rgba(255,255,255,0.95);
@@ -1156,13 +1190,14 @@ body.ride-started:not(.show-intro) .start-panel{
     @media (max-width: 420px){
   .stop .label-text strong{ font-size: 10px; }
   .stop .icon{ width: 20px; height: 20px; font-size: 13px; }
+  .li{ font-size: 12px; }
 }
 
 
   </style>
 </head>
 
-<body class="is-loading">
+<body class="is-loading ride-started">
 
 <div id="loader" class="loader" role="status" aria-live="polite" aria-label="Loading website">
   <div class="loader-card">
@@ -1227,7 +1262,7 @@ body.ride-started:not(.show-intro) .start-panel{
     </div>
   </header>
 
-  <div class="start-wrap-outer">
+   <div class="start-wrap-outer">
     <section class="start-panel" id="start" aria-label="Start the ride">
       <div class="start-hero">
         <div class="headshot-wrap" aria-hidden="true">
@@ -1238,14 +1273,22 @@ body.ride-started:not(.show-intro) .start-panel{
           <h1>Hi there!</h1>
           <div class="subhead">I'm Quynh Tran and I'm excited for you to be here.</div>
 
-          <div class="start-actions">
+          <!-- <div class="start-actions">
             <a class="start-btn" href="#education" id="startRideBtn" data-nav="education">Let's start biking!</a>
             <a class="start-btn tiny" href="#contact" data-nav="contact">Or just dock and contact</a>
-          </div>
+          </div> -->
         </div>
       </div>
     </section>
-  </div>
+            <section class="contacts" id="contact" aria-label="Contact">
+          <h2>📨 Contact</h2>
+          <ul>
+            <li>Email: <a href="mailto:quynhalicetran@gmail.com">quynhalicetran@gmail.com</a></li>
+            <li>LinkedIn: <a href="https://www.linkedin.com/in/quynhalicetran" target="_blank" rel="noreferrer">linkedin.com/in/quynhalicetran</a></li>
+            <li>GitHub: <a href="https://github.com/quynhalicetran" target="_blank" rel="noreferrer">github.com/quynhalicetran</a></li>
+          </ul>
+        </section>
+  </div> 
 
   <div class="layout">
     <aside class="sidebar" id="sidebar" aria-label="Citi Bike Route Sidebar">
@@ -1254,10 +1297,9 @@ body.ride-started:not(.show-intro) .start-panel{
           <div class="drag-big" aria-hidden="true">
             <img src="icons/drag-icon.png" alt="" class="drag-icon-img">
           </div>
-
           <div>
             <div class="subhead" style="color:#fff; margin:0 0 4px;">Bike Route</div>
-            <p>Drag • Scroll • Click</p>
+            <div class="subheadsub">Drag • Scroll • Click</div>
           </div>
         </div>
       </div>
@@ -1289,11 +1331,11 @@ body.ride-started:not(.show-intro) .start-panel{
             </div>
           </li>
 
-          <li class="stop" data-target="work-experience">
+          <li class="stop" data-target="experience">
             <div class="bike-dock"><div class="parking-spot" aria-hidden="true"></div></div>
             <div class="stop-label">
               <div class="icon" aria-hidden="true">💼</div>
-              <div class="label-text"><strong>Work Experience</strong></div>
+              <div class="label-text"><strong>Experience</strong></div>
             </div>
           </li>
 
@@ -1335,15 +1377,7 @@ body.ride-started:not(.show-intro) .start-panel{
             <div class="bike-dock"><div class="parking-spot" aria-hidden="true"></div></div>
             <div class="stop-label">
               <div class="icon" aria-hidden="true">🎨</div>
-              <div class="label-text"><strong>Current Interests</strong></div>
-            </div>
-          </li>
-
-          <li class="stop" data-target="contact">
-            <div class="bike-dock"><div class="parking-spot" aria-hidden="true"></div></div>
-            <div class="stop-label">
-              <div class="icon" aria-hidden="true">📨</div>
-              <div class="label-text"><strong>Contact</strong></div>
+              <div class="label-text"><strong>Interests</strong></div>
             </div>
           </li>
 
@@ -1372,15 +1406,14 @@ body.ride-started:not(.show-intro) .start-panel{
           <div class="subhead">New York University – Stern School of Business</div>
           <div class="meta-line">New York, NY • Aug 2020 – May 2024</div>
           <ul>
-            <li><strong>Bachelor of Science, Major in Finance, Minor in Math and Computer Science</strong></li>
+            <li><strong>Bachelor of Science, Finance, Minor: Computer Science and Mathematics</strong></li>
             <li><strong>GPA:</strong> 3.4/4.0</li>
-            <li><strong>Relevant Coursework:</strong> Decision Models &amp; Analytics, Financial Modeling, Equity Valuation, Securities Trading, Data Structures and Algorithms, Financial Statement Analysis, Real Estate Modeling</li>
           </ul>
         </section>
         
 
-        <section class="section" id="work-experience" aria-label="Work Experience">
-          <h2>💼 Work Experience</h2>
+        <section class="section" id="experience" aria-label="Experience">
+          <h2>💼 Experience</h2>
 
           <div class="subhead">Deloitte — Technical Consultant</div>
           <div class="meta-line">New York, NY • July 2024 – Present</div>
@@ -1443,9 +1476,11 @@ body.ride-started:not(.show-intro) .start-panel{
           <section class="section" id="badges" aria-label="badges">
           <h2>💡 Projects</h2>
           <div class="subhead">Just-in-Time Broker</div>
+          <li>Designed multi-scope Okta-to-AWS Just In Time  authorization mapping to IAM roles using STS AssumeRole and policy controls, with guardrails (group validation, safe defaults, session duration limits) and CloudWatch audit logging to prevent privilege escalation across organizational boundaries identity groups</li>
           <a class="start-btn tiny badge" href="https://projects.quynhalicetran.com/okta.html" target="_blank" rel="noreferrer">View Demo Website ↗</a>
           <div style="height:16px;"></div>
           <div class="subhead">Bodega Cat Map</div>
+          <li>Built an AWS serverless app using S3 + CloudFront for UI, AWS Cognito for user authentication, API Gateway + Lambda for backend processing, DynamoDB for data storage/discovery, AWS Location Service for geocoding, and S3 object workflows</li>
           <a class="start-btn tiny badge" href="https://bodegacatmap.quynhalicetran.com" target="_blank" rel="noreferrer">View Live Website ↗</a>
         </section>
 
@@ -1483,14 +1518,7 @@ body.ride-started:not(.show-intro) .start-panel{
           </ul>
         </section>
 
-        <section class="section" id="contact" aria-label="Contact">
-          <h2>📨 Contact</h2>
-          <ul>
-            <li>Email: <a href="mailto:quynhalicetran@gmail.com">quynhalicetran@gmail.com</a></li>
-            <li>LinkedIn: <a href="https://www.linkedin.com/in/quynhalicetran" target="_blank" rel="noreferrer">linkedin.com/in/quynhalicetran</a></li>
-            <li>GitHub: <a href="https://github.com/quynhalicetran" target="_blank" rel="noreferrer">github.com/quynhalicetran</a></li>
-          </ul>
-        </section>
+
         <div class="meta-line">This is still a work-in-progress. I would appreciate any feedbacks or suggestions!</div>
       </div>
     </main>
@@ -1514,7 +1542,7 @@ body.ride-started:not(.show-intro) .start-panel{
 
   <div class="big-alert" id="bigAlert" aria-live="polite" aria-atomic="true" role="status">
     <div class="big-alert-card">
-      <div class="big-alert-text" id="bigAlertText">Please don't skip stops</div>
+      <div class="big-alert-text" id="bigAlertText">Please visit all stops.</div>
     </div>
   </div>
 
@@ -1602,13 +1630,12 @@ body.ride-started:not(.show-intro) .start-panel{
 
 const route = [
   { id: "education", title: "Education" },
-  { id: "work-experience", title: "Work Experience" },
+  { id: "experience", title: "Experience" },
   { id: "game", title: "Game Break" },
   { id: "projects", title: "Projects" },
   { id: "badges", title: "Badges" },
   { id: "skills", title: "Skills" },
   { id: "interests", title: "Interests" },
-  { id: "contact", title: "Contact" },
   { id: "finish", title: "Finish" }
 ];
 (function setTopbarHeightVar(){
@@ -1883,6 +1910,11 @@ function syncDockFromScroll(){
 
   dockBikeAtIndex(getIndexByScroll());
 }
+function warnIfSkip(fromIdx, toIdx){
+  if (isSkipAttempt(fromIdx, toIdx)){
+    showBigMessage("Please don't skip stops", "warn");
+  }
+}
 
 function bindSidebarClicks(){
   stops.forEach((stopEl) => {
@@ -1894,10 +1926,7 @@ function bindSidebarClicks(){
       const idx = targetToIndex.get(target);
       if (typeof idx !== "number") return;
 
-      if (isSkipAttempt(dockedIndex, idx)){
-        showBigMessage("Please don't skip stops", "warn");
-        return;
-      }
+      warnIfSkip(dockedIndex, idx);
 
       navLockIndex = idx;
       finishLocked = false;
@@ -1906,6 +1935,7 @@ function bindSidebarClicks(){
       computeDockCenters();
       dockBikeAtIndex(idx);
       scrollToSectionWithOffset(sections[idx]);
+
     });
   });
 }
@@ -1928,6 +1958,8 @@ function bindNavButtons(){
       computeDockCenters();
       dockBikeAtIndex(idx);
       scrollToSectionWithOffset(sections[idx]);
+      warnIfSkip(dockedIndex, idx);
+
     });
   });
 }
@@ -2050,14 +2082,7 @@ function endDrag(e){
 
   const idx = getNearestDockIndexFromBikeTopLeft(x, y);
 
-  if (isSkipAttempt(dockedIndex, idx)){
-    showBigMessage("Please don't skip stops", "warn");
-    dockBikeAtIndex(dockedIndex);
-    navLockIndex = dockedIndex;
-
-    setTimeout(() => stops.forEach(s => s.classList.remove("is-drop-target")), 450);
-    return;
-  }
+  warnIfSkip(dockedIndex, idx);
 
   dockBikeAtIndex(idx);
   navLockIndex = idx;
@@ -2068,6 +2093,7 @@ function endDrag(e){
   scrollToSectionWithOffset(sections[idx]);
 
   setTimeout(() => stops.forEach(s => s.classList.remove("is-drop-target")), 450);
+  return;
 }
 
 bike.addEventListener("pointerup", endDrag);
@@ -2098,13 +2124,19 @@ if (stopsUl){
   }, { passive: true });
 }
 
-document.getElementById("startRideBtn").addEventListener("click", (e) => {
-  e.preventDefault();
-  startRide(true);
-});
+const startBtn = document.getElementById("startRideBtn");
+if (startBtn){
+  startBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    startRide(true);
+  });
+}
+// fix the start ride
 
 bindSidebarClicks();
 bindNavButtons();
+startRide(false);
+
 
 window.addEventListener("scroll", () => {
   if (!document.body.classList.contains("ride-started")) return;
