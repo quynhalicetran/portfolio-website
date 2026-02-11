@@ -1473,7 +1473,7 @@ body.ride-started:not(.show-intro) .start-panel{
           </div>
         </section>
 
-          <section class="section" id="badges" aria-label="badges">
+          <section class="section" id="projects" aria-label="Projects">
           <h2>💡 Projects</h2>
           <div class="subhead">Just-in-Time Broker</div>
           <li>Designed multi-scope Okta-to-AWS Just In Time  authorization mapping to IAM roles using STS AssumeRole and policy controls, with guardrails (group validation, safe defaults, session duration limits) and CloudWatch audit logging to prevent privilege escalation across organizational boundaries identity groups</li>
@@ -1670,22 +1670,27 @@ const idToIndex = new Map(route.map((r, i) => [r.id, i]));
 const targetToIndex = new Map(stops.map((el, i) => [el.getAttribute("data-target"), i]));
 
 function getStickyOffset(){
-  const root = document.documentElement;
-  const stickTop = getComputedStyle(root).getPropertyValue("--stickTop").trim();
-  const n = parseFloat(stickTop);
-  return Number.isFinite(n) ? n : 96;
-}
+  const topbar = document.querySelector(".topbar");
+  const sidebar = document.querySelector(".sidebar");
 
+  const topbarH = topbar ? topbar.getBoundingClientRect().height : 0;
+  const sidebarOnTop = window.matchMedia("(max-width: 1100px)").matches;
+  const sidebarH = (sidebarOnTop && sidebar) ? sidebar.getBoundingClientRect().height : 0;
+  const gap = 12;
+
+  return topbarH + (sidebarOnTop ? (sidebarH + gap) : 0) + gap;
+}
 
 function scrollToSectionWithOffset(el){
   if (!el) return;
-  const y = window.pageYOffset + el.getBoundingClientRect().top - getStickyOffset() - 8;
+  const y = window.scrollY + el.getBoundingClientRect().top - getStickyOffset();
   window.scrollTo({ top: y, behavior: "smooth" });
 }
 
+
 function ensureStopVisible(idx){
   if (!stopsUl) return;
-  if (stopsUl.scrollWidth <= stopsUl.clientWidth + 2) return; // not scrollable -> desktop
+  if (stopsUl.scrollWidth <= stopsUl.clientWidth + 2) return;
 
   const item = stops[idx];
   if (!item) return;
