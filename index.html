@@ -1297,13 +1297,23 @@ body.ride-started:not(.show-intro) .start-panel{
             </div>
           </li>
 
-          <li class="stop" data-target="game">
+                    <li class="stop" data-target="game">
             <div class="bike-dock"><div class="parking-spot" aria-hidden="true"></div></div>
             <div class="stopgame-label">
               <div class="icon" aria-hidden="true">🕹️</div>
               <div class="label-text"><strong>Game Break</strong></div>
             </div>
           </li>
+
+                    <li class="stop" data-target="projects">
+            <div class="bike-dock"><div class="parking-spot" aria-hidden="true"></div></div>
+            <div class="stop-label">
+              <div class="icon" aria-hidden="true">💡</div>
+              <div class="label-text"><strong>Projects</strong></div>
+            </div>
+          </li>
+
+
 
           <li class="stop" data-target="badges">
             <div class="bike-dock"><div class="parking-spot" aria-hidden="true"></div></div>
@@ -1367,6 +1377,7 @@ body.ride-started:not(.show-intro) .start-panel{
             <li><strong>Relevant Coursework:</strong> Decision Models &amp; Analytics, Financial Modeling, Equity Valuation, Securities Trading, Data Structures and Algorithms, Financial Statement Analysis, Real Estate Modeling</li>
           </ul>
         </section>
+        
 
         <section class="section" id="work-experience" aria-label="Work Experience">
           <h2>💼 Work Experience</h2>
@@ -1404,7 +1415,7 @@ body.ride-started:not(.show-intro) .start-panel{
           </ul>
         </section>
 
-        <section class="sectiongame" id="game" aria-label="Game Break">
+                <section class="sectiongame" id="game" aria-label="Game Break">
           <h2>🕹️ Game Break</h2>
           <p class="desc">Let's take a quick break and play!</p>
 
@@ -1427,6 +1438,15 @@ body.ride-started:not(.show-intro) .start-panel{
               aria-label="Adjust game speed"
             />
           </div>
+        </section>
+
+          <section class="section" id="badges" aria-label="badges">
+          <h2>💡 Projects</h2>
+          <div class="subhead">Just-in-Time Broker</div>
+          <a class="start-btn tiny badge" href="https:projects.quynhalicetran.com/okta.html" target="_blank" rel="noreferrer">View Demo Website ↗</a>
+          <div style="height:16px;"></div>
+          <div class="subhead">Bodega Cat Map</div>
+          <a class="start-btn tiny badge" href="bodegacatmap.quynhalicetran.coom" target="_blank" rel="noreferrer">View Live Website ↗</a>
         </section>
 
         <section class="section" id="badges" aria-label="badges">
@@ -1584,6 +1604,7 @@ const route = [
   { id: "education", title: "Education" },
   { id: "work-experience", title: "Work Experience" },
   { id: "game", title: "Game Break" },
+  { id: "projects", title: "Projects" },
   { id: "badges", title: "Badges" },
   { id: "skills", title: "Skills" },
   { id: "interests", title: "Interests" },
