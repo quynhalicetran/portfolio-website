@@ -40,10 +40,15 @@
       --shadow-soft: 0 14px 34px rgba(11,42,60,0.18);
       --shadow-card: 0 16px 42px rgba(11,42,60,0.12);
       --shadow-chip: 0 10px 22px rgba(11,42,60,0.10);
+      --topbarH: 54px; 
+      --uiGap: 18px;
+      --stickTop: calc(var(--topbarH) + var(--uiGap) + env(safe-area-inset-top));
+
     }
 
     *{ box-sizing:border-box }
-    html,body{ height:100% }
+    html,body{ height:100%;
+     }
 
     body{
       margin:0;
@@ -53,8 +58,6 @@
       color: var(--text);
       overflow-x:hidden;
       letter-spacing: 0.1px;
-        padding-top: calc(var(--topbarH) + env(safe-area-inset-top));
-
     }
 
     a{ color: inherit; }
@@ -107,15 +110,6 @@
     @media (max-width: 700px){
       .nyc-sticker{ opacity: 0.02; font-size: 54px; }
     }
-
-:root{
-  --topbarH: 54px; 
-  --topGap: 12px;  
-   --sidebarOffset: 22px; 
-     --topbarH: 64px;   
-  --uiGap: 18px;     
-  --stickTop: calc(var(--topbarH) + var(--uiGap) + env(safe-area-inset-top));
-}
 
 .topbar{
   position: fixed;         
@@ -1491,11 +1485,15 @@ body.ride-started:not(.show-intro) .start-panel{
           <section class="section" id="projects" aria-label="Projects">
           <h2>💡 Projects</h2>
           <div class="subhead">Just-in-Time Broker</div>
+          <ul>
           <li>Designed multi-scope Okta-to-AWS Just In Time  authorization mapping to IAM roles using STS AssumeRole and policy controls, with guardrails (group validation, safe defaults, session duration limits) and CloudWatch audit logging to prevent privilege escalation across organizational boundaries identity groups</li>
+          </ul>
           <a class="start-btn tiny badge" href="https://projects.quynhalicetran.com/okta.html" target="_blank" rel="noreferrer">View Demo Website ↗</a>
           <div style="height:16px;"></div>
           <div class="subhead">Bodega Cat Map</div>
+          <ul>
           <li>Built an AWS serverless app using S3 + CloudFront for UI, AWS Cognito for user authentication, API Gateway + Lambda for backend processing, DynamoDB for data storage/discovery, AWS Location Service for geocoding, and S3 object workflows</li>
+          </ul>
           <a class="start-btn tiny badge" href="https://bodegacatmap.quynhalicetran.com" target="_blank" rel="noreferrer">View Live Website ↗</a>
         </section>
 
