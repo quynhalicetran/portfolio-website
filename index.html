@@ -6,7 +6,6 @@
   <title>Quynh Tran Portfolio</title>
 
   <link rel="icon" type="image/png" href="icons/bike-icon.png">
-  <link rel="icon" type="image/png" href="favicon.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
   <style>
@@ -1206,6 +1205,8 @@ body.ride-started:not(.show-intro) .start-panel{
   object-fit: contain;
 }
 
+    .game-hint{ font-size: 12px;}
+
 
 
       .ride-complete{ display:none !important; }
@@ -1215,8 +1216,143 @@ body.ride-started:not(.show-intro) .start-panel{
   .stop .icon{ width: 20px; height: 20px; font-size: 13px; }
   .li{ font-size: 12px; }
 }
+.grid{
+      margin-top: 16px;
+      display:grid;
+      gap: 16px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 860px){
+      .grid{ grid-template-columns: 1fr 1fr; }
+      .card.span2{ grid-column: span 2; }
+    }
+    .card{
+      border-radius: 14px;
+      margin: 0px 0px 14px;
+      border: 2px dashed var(--blue);
+      background: var(--card-grad);
+      padding: 8px 25px 16px;
+      box-shadow: var(--shadow-chip);
+      position: relative;
+      overflow: hidden;
+      transition: transform .15s ease, filter .15s ease;
+    }
+    .card:hover{
+      transform: translateY(-2px);
+      filter: brightness(1.01);
+    }
 
+    .top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      flex-wrap:wrap;
+      margin-bottom: 10px;
+    }
 
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: var(--border-soft);
+      background: rgba(255, 251, 179, 0.92);
+      box-shadow: var(--shadow-chip);
+      color: var(--blue-deep);
+      font-size: 12.5px;
+      font-weight: 950;
+      white-space: nowrap;
+    }
+
+    .dot{
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--blue);
+      box-shadow: 0 0 0 4px rgba(0,169,224,0.16);
+    }
+    .dot.green{
+      background: var(--green);
+      box-shadow: 0 0 0 4px rgba(45,190,96,0.16);
+    }
+    .dot.orange{
+      background: #FFB14A;
+      box-shadow: 0 0 0 4px rgba(255,177,74,0.16);
+    }
+
+    p{
+      margin: 0;
+      color: rgba(11,27,42,0.82);
+      line-height: 1.6;
+      font-weight: 800;
+      font-size: 14.5px;
+      max-width: 78ch;
+    }
+
+    .actions{
+      margin-top: 12px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content: space-around;
+    }
+    .btn{
+      appearance:none;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(0,0,0,0.10);
+      background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.90));
+      color: var(--blue);
+      padding: 10px 14px;
+      font-weight: 950;
+      font-size: 13.5px;
+      cursor:pointer;
+      box-shadow: 0 10px 18px rgba(11,42,60,0.08);
+      transition: transform .15s ease, filter .15s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+
+    .btn.primary{
+      background: linear-gradient(180deg, rgba(0,169,224,1), rgba(0,169,224,0.86));
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.45);
+      box-shadow: 0 12px 24px rgba(0,169,224,0.20);
+      border-radius: 14px;
+      justify-content: center;
+      display: flex;
+    }
+
+    .btn.green{
+      background: linear-gradient(180deg, rgba(45,190,96,1), rgba(45,190,96,0.86));
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.45);
+      box-shadow: 0 12px 24px rgba(45,190,96,0.18);
+      border-radius: 14px;
+    }
+
+    .btn.orange{
+      background: linear-gradient(180deg, rgba(255,177,74,1), rgba(255,177,74,0.86));
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.45);
+      box-shadow: 0 12px 24px rgba(255,177,74,0.18);
+      border-radius: 14px;
+    }
+
+      .btn.git{
+      background:rgba(64, 59, 59, 0.8);
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.45);
+      box-shadow: 0 12px 24px rgba(83, 82, 80, 0.18);
+      border-radius: 14px;
+    }
+
+    .hint{
+      margin-top: 14px;
+      text-align:center;
+      color: rgba(11,27,42,0.70);
+      font-size: 12.5px;
+      font-weight: 800;
+    }
   </style>
 </head>
 
@@ -1286,7 +1422,7 @@ body.ride-started:not(.show-intro) .start-panel{
         </div>
 
         <div class="start-hero-text">
-          <h1>Hi there!</h1>
+          <h1>Hello!</h1>
           <div class="subhead">I'm Quynh Tran and I'm excited for you to be here.</div>
 
           <!-- <div class="start-actions">
@@ -1356,21 +1492,19 @@ body.ride-started:not(.show-intro) .start-panel{
             </div>
           </li>
 
+                    <li class="stop" data-target="badges">
+            <div class="bike-dock"><div class="parking-spot" aria-hidden="true"></div></div>
+            <div class="stop-label">
+              <div class="icon" aria-hidden="true">🏅</div>
+              <div class="label-text"><strong>Badges</strong></div>
+            </div>
+          </li>
+
                     <li class="stop" data-target="projects">
             <div class="bike-dock"><div class="parking-spot" aria-hidden="true"></div></div>
             <div class="stop-label">
               <div class="icon" aria-hidden="true">💡</div>
               <div class="label-text"><strong>Projects</strong></div>
-            </div>
-          </li>
-
-
-
-          <li class="stop" data-target="badges">
-            <div class="bike-dock"><div class="parking-spot" aria-hidden="true"></div></div>
-            <div class="stop-label">
-              <div class="icon" aria-hidden="true">🏅</div>
-              <div class="label-text"><strong>Badges</strong></div>
             </div>
           </li>
 
@@ -1482,28 +1616,67 @@ body.ride-started:not(.show-intro) .start-panel{
           </div>
         </section>
 
-          <section class="section" id="projects" aria-label="Projects">
-          <h2>💡 Projects</h2>
-          <div class="subhead">Just-in-Time Broker</div>
-          <ul>
-          <li>Designed multi-scope Okta-to-AWS Just In Time  authorization mapping to IAM roles using STS AssumeRole and policy controls, with guardrails (group validation, safe defaults, session duration limits) and CloudWatch audit logging to prevent privilege escalation across organizational boundaries identity groups</li>
-          </ul>
-          <a class="start-btn tiny badge" href="https://projects.quynhalicetran.com/okta.html" target="_blank" rel="noreferrer">View Demo Website ↗</a>
-          <div style="height:16px;"></div>
-          <div class="subhead">Bodega Cat Map</div>
-          <ul>
-          <li>Built an AWS serverless app using S3 + CloudFront for UI, AWS Cognito for user authentication, API Gateway + Lambda for backend processing, DynamoDB for data storage/discovery, AWS Location Service for geocoding, and S3 object workflows</li>
-          </ul>
-          <a class="start-btn tiny badge" href="https://bodegacatmap.quynhalicetran.com" target="_blank" rel="noreferrer">View Live Website ↗</a>
-        </section>
-
-        <section class="section" id="badges" aria-label="badges">
+                <section class="section" id="badges" aria-label="badges">
           <h2>🏅 Badges</h2>
           <div class="subhead">AWS Certified Cloud Practitioner</div>
-          <a class="start-btn tiny badge" href="https://www.credly.com/badges/9cc9dc68-8687-4acc-8c34-a1a976e540dd" target="_blank" rel="noreferrer">View badge ↗</a>
+          <a class="btn primary" href="https://www.credly.com/badges/9cc9dc68-8687-4acc-8c34-a1a976e540dd" target="_blank" rel="noreferrer">View badge ↗</a>
           <div style="height:16px;"></div>
           <div class="subhead">AWS Certified Solutions Architect – Associate</div>
-          <a class="start-btn tiny badge" href="https://www.credly.com/badges/152de3b4-a0cc-4e29-a752-c6419cce34f0" target="_blank" rel="noreferrer">View badge ↗</a>
+          <a class="btn primary" href="https://www.credly.com/badges/152de3b4-a0cc-4e29-a752-c6419cce34f0" target="_blank" rel="noreferrer">View badge ↗</a>
+        </section>
+
+          <section class="section" id="projects" aria-label="Projects">
+          <h2>💡 Projects</h2>
+          <section class="card span2">
+        <div class="top">
+        </div>
+        <div class="subhead">Okta → AWS JIT Access Broker</div>
+        <ul>
+        <li>Just-in-time access flow with short-lived credentials and audit-friendly permissions.</li>
+      </ul>
+        <div class="actions">
+          <a class="btn primary" href="https://projects.quynhalicetran.com/jit-broker/index-broker.html" target="_blank" rel="noreferrer">
+            Open Demo
+          </a>
+          <a class="btn git" href="https://github.com/quynhalicetran/jit-broker" target="_blank" rel="noreferrer">
+            Open GitHub Repo
+          </a>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="top">
+        </div>
+        <div class="subhead">Transparent Background Maker</div>
+        <ul>
+        <li>Remove backgrounds and export transparent PNGs.</li>
+        </ul>
+        <div class="actions">
+          <a class="btn green" href="https://projects.quynhalicetran.com/transparent-background-maker/index-transparent.html" target="_blank" rel="noreferrer">
+            Open Tool
+          </a>
+          </a>
+          <a class="btn git" href="https://github.com/quynhalicetran/transparent-BG-maker" target="_blank" rel="noreferrer">
+            Open GitHub Repo
+          </a>
+        </div>
+      </section>
+
+      <section class="card">
+       <div class="subhead">Bodega Cat Map</div>
+       <ul>
+        <li>Crowd-sourced bodega cat sightings + leaderboard.</li>
+        </ul>
+        <div class="actions">
+          <a class="btn orange" href="https://bodegacatmap.quynhalicetran.com" target="_blank" rel="noreferrer">
+            Open Map
+          </a>
+          </a>
+          <a class="btn git" href="https://github.com/quynhalicetran/bodega-cat-map" target="_blank" rel="noreferrer">
+            Open GitHub Repo
+          </a>
+        </div>
+        </section>
         </section>
 
         <section class="section" id="skills" aria-label="Skills">
@@ -1645,8 +1818,8 @@ const route = [
   { id: "education", title: "Education" },
   { id: "experience", title: "Experience" },
   { id: "game", title: "Game Break" },
+    { id: "badges", title: "Badges" },
   { id: "projects", title: "Projects" },
-  { id: "badges", title: "Badges" },
   { id: "skills", title: "Skills" },
   { id: "interests", title: "Interests" },
   { id: "finish", title: "Finish" }
