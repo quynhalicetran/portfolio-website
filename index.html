@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Quynh Tran Portfolio</title>
 
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A//www.w3.org/2000/svg'%20viewBox%3D'0%200%2064%2064'%3E%3Ccircle%20cx%3D'32'%20cy%3D'32'%20r%3D'28'%20fill%3D'rgba(255%2C255%2C255%2C0.94)'%20stroke%3D'rgba(11%2C42%2C60%2C0.22)'%20stroke-width%3D'2'/%3E%3Cpath%20d%3D'M18%2044a8%208%200%201%200%200-16%208%208%200%200%200%200%2016Zm28%200a8%208%200%201%200%200-16%208%208%200%200%200%200%2016Z'%20fill%3D'none'%20stroke%3D'%230B2A3C'%20stroke-width%3D'3'/%3E%3Cpath%20d%3D'M26%2020h12l6%2012H32l-6%2018'%20fill%3D'none'%20stroke%3D'%230B2A3C'%20stroke-width%3D'3'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'/%3E%3Cpath%20d%3D'M38%2020h10'%20fill%3D'none'%20stroke%3D'%230B2A3C'%20stroke-width%3D'3'%20stroke-linecap%3D'round'/%3E%3Ccircle%20cx%3D'18'%20cy%3D'36'%20r%3D'2'%20fill%3D'%2300A9E0'/%3E%3Ccircle%20cx%3D'46'%20cy%3D'36'%20r%3D'2'%20fill%3D'%2300A9E0'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/png" href="icons/bike-icon.png">
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
@@ -239,7 +239,7 @@ body{
     .content { min-width: 0; }
     section.section, section.sectiongame { min-width: 0; }
 
-    @media (max-width: 1100px){
+    @media (max-width: 800px){
       .layout{ grid-template-columns: 1fr; gap: 12px; padding-bottom: 25px; }
     }
 
@@ -255,7 +255,7 @@ body{
       justify-content:center;
       pointer-events:none;
     }
-    @media (max-width: 1100px){
+    @media (max-width: 800px){
       .divider{ display:none; }
     }
     .divider::before{
@@ -285,7 +285,7 @@ body{
       box-shadow: var(--shadow-soft);
       transition: background .25s ease, border-color .25s ease, filter .25s ease;
     }
-    @media (max-width: 1100px){
+    @media (max-width: 800px){
       .sidebar{
         position: sticky;
           margin-top: 0; 
@@ -358,6 +358,9 @@ body{
       height: 14px;
       object-fit: contain;
       display: block;
+        pointer-events: none;
+  -webkit-user-drag: none;
+  user-select: none;
     }
 
     .side-head p{
@@ -382,7 +385,7 @@ body{
       --dock-col: 48px;
       --lane-x: calc(12px + (var(--dock-col) / 2));
     }
-    @media (max-width: 1100px){
+    @media (max-width: 800px){
       .route-board{ height: 320px; }
     }
 
@@ -526,6 +529,16 @@ body{
       cursor: grab;
       filter: drop-shadow(0 10px 14px rgba(11,42,60,0.18));
     }
+
+    .route-bike img{
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+    pointer-events: none;
+  -webkit-user-drag: none;
+  user-select: none;
+}
     .route-bike.dragging{
       cursor: grabbing;
       opacity: 0.90;
@@ -548,7 +561,10 @@ body{
       font-size: 14px;
       font-weight: 900;
     }
-    .route-bike:hover .drag-hint{ opacity: 1; }
+    .route-bike:hover .drag-hint{ opacity: 0 !important;}
+    @media (hover:hover) and (pointer:fine){
+  .route-bike:not(.dragging):not(.just-dropped):hover .drag-hint{ opacity: 1; }
+}
 
     .ride-complete{
       position: relative;
@@ -582,7 +598,7 @@ body{
       border-radius: 14px;
       border: 3px solid var(--blue-deep);
       background: var(--card-grad);
-      padding: 28px;
+      padding: 18px;
       box-shadow: var(--shadow-chip);
       position: relative;
       overflow: hidden;
@@ -604,7 +620,7 @@ body{
       border-radius: 14px;
       border: 3px solid var(--blue-deep);
       background: rgb(255, 248, 105);
-      padding: 28px;
+      padding: 18px;
       box-shadow: var(--shadow-chip);
       position: relative;
       overflow: hidden;
@@ -625,7 +641,7 @@ body{
       text-shadow: 0 10px 22px rgba(0,169,224,0.20);
     }
     h2{
-      margin: 0 0 10px;
+      margin: 5px 0 10px;
       font-size: 30px;
       color: var(--blue);
       font-weight: 950;
@@ -780,13 +796,6 @@ body{
   opacity: 1;
 }
 
-body.ride-started:not(.show-intro) .start-wrap-outer{
-  max-height: 0 !important;
-  padding: 0 !important;
-  opacity: 0 !important;
-  overflow: hidden !important;
-}
-
 body.ride-started:not(.show-intro) .start-panel{
   pointer-events: none;
 }
@@ -853,6 +862,8 @@ body.ride-started:not(.show-intro) .start-panel{
       background: rgba(255,255,255,0.86);
       box-shadow: 0 12px 22px rgba(11,42,60,0.10);
       overflow: hidden;
+        display: flex;
+  justify-content: center;
     }
 
     #dinoGame{
@@ -861,6 +872,9 @@ body.ride-started:not(.show-intro) .start-panel{
       display: block;
       touch-action: manipulation;
       image-rendering: auto;
+        width: 100%;
+  height: auto;
+  display: block;
     }
 
     .game-hint{
@@ -985,6 +999,14 @@ body.ride-started:not(.show-intro) .start-panel{
       z-index: 3;
     }
 
+    .loader-bike img{
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+
     .loader-obstacle{
       position: absolute;
       top: 50%;
@@ -1040,7 +1062,7 @@ body.ride-started:not(.show-intro) .start-panel{
       .loader-obstacle.bonk{ transform: translate(-50%, -50%); }
     }
 
-    @media (max-width: 1100px){
+    @media (max-width: 800px){
 
       li { font-size: 13px; }
       h2 { font-size: 18px; }
@@ -1183,10 +1205,14 @@ body.ride-started:not(.show-intro) .start-panel{
         width: 44px;
         height: 44px;
       }
-      .route-bike svg{
-        width: 44px;
-        height: 44px;
-      }
+.route-bike img{
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+
 
       .ride-complete{ display:none !important; }
     }
@@ -1216,17 +1242,10 @@ body.ride-started:not(.show-intro) .start-panel{
       <span class="loader-obstacle" data-at="0.86">🍕</span>
 
       <div class="loader-bike" id="loaderBike" aria-hidden="true">
-        <svg viewBox="0 0 64 64" width="44" height="44">
-          <circle cx="32" cy="32" r="28" fill="rgba(255,255,255,0.98)" stroke="rgba(11,42,60,0.28)" stroke-width="2"/>
-          <path d="M18 44a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm28 0a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"
-                fill="none" stroke="#0B2A3C" stroke-width="3"/>
-          <path d="M26 20h12l6 12H32l-6 18" fill="none" stroke="#0B2A3C" stroke-width="3"
-                stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M38 20h10" fill="none" stroke="#0B2A3C" stroke-width="3" stroke-linecap="round"/>
-          <circle cx="18" cy="36" r="2" fill="#00A9E0"/>
-          <circle cx="46" cy="36" r="2" fill="#00A9E0"/>
-        </svg>
-      </div>
+  <img src="icons/bike-icon.png" alt="" aria-hidden="true" draggable="false">
+
+</div>
+
 
       <div class="loader-fill" id="loaderFill" aria-hidden="true"></div>
     </div>
@@ -1294,14 +1313,14 @@ body.ride-started:not(.show-intro) .start-panel{
   </div> 
 
   <div class="layout">
-    <aside class="sidebar" id="sidebar" aria-label="Citi Bike Route Sidebar">
+    <aside class="sidebar" id="sidebar" aria-label="Route Sidebar">
       <div class="side-head">
         <div class="side-title-row">
           <div class="drag-big" aria-hidden="true">
             <img src="icons/drag-icon.png" alt="" class="drag-icon-img">
           </div>
           <div>
-            <div class="subhead" style="color:#fff; margin:0 0 4px;">Bike Route</div>
+            <div class="subhead" style="color:#fff; margin:0 0 4px;">Route</div>
             <div class="subheadsub">Drag • Scroll • Click</div>
           </div>
         </div>
@@ -1309,21 +1328,14 @@ body.ride-started:not(.show-intro) .start-panel{
 
       <div class="route-board" id="routeBoard" aria-label="Stations">
         <div class="route-bike" id="bike" role="button" tabindex="0" aria-label="Drag the bike to another station">
-          <div class="drag-hint" aria-hidden="true">
-            <img src="icons/drag-icon.png" alt="" class="drag-hint-img">
-          </div>
+  <div class="drag-hint" aria-hidden="true">
+    <img src="icons/drag-icon.png" alt="" class="drag-hint-img">
+  </div>
 
-          <svg viewBox="0 0 64 64" width="52" height="52" aria-hidden="true">
-            <circle cx="32" cy="32" r="28" fill="rgba(255,255,255,0.94)" stroke="rgba(11,42,60,0.22)" stroke-width="2"/>
-            <path d="M18 44a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm28 0a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"
-                  fill="none" stroke="#0B2A3C" stroke-width="3"/>
-            <path d="M26 20h12l6 12H32l-6 18" fill="none" stroke="#0B2A3C" stroke-width="3"
-                  stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M38 20h10" fill="none" stroke="#0B2A3C" stroke-width="3" stroke-linecap="round"/>
-            <circle cx="18" cy="36" r="2" fill="#00A9E0"/>
-            <circle cx="46" cy="36" r="2" fill="#00A9E0"/>
-          </svg>
-        </div>
+  <img src="icons/bike-icon.png" alt="" aria-hidden="true" draggable="false">
+
+</div>
+
 
         <ul class="stops" id="stops">
           <li class="stop" data-target="education">
@@ -2073,7 +2085,9 @@ bike.addEventListener("pointermove", (e) => {
 function endDrag(e){
   if (!dragging) return;
   dragging = false;
-  bike.classList.remove("dragging");
+bike.classList.remove("dragging");
+bike.classList.add("just-dropped");
+setTimeout(() => bike.classList.remove("just-dropped"), 180);
 
   setDangerMode(false);
   computeDockCenters();
@@ -2174,36 +2188,37 @@ window.addEventListener("resize", () => {
   const ctx = canvas.getContext("2d", { alpha: true });
   if (!ctx) return;
 
-  const cssW = canvas.width;
-  const cssH = canvas.height;
-  const DPR = Math.max(1, Math.min(2.5, window.devicePixelRatio || 1));
+  //game over board fix
+  const BASE_W = canvas.width;  
+const BASE_H = canvas.height; 
+
+function resizeCanvas(){
+  const parentW = canvas.parentElement ? canvas.parentElement.clientWidth : BASE_W;
+
+  const cssW = Math.min(BASE_W, parentW);
+  const cssH = Math.round(cssW * (BASE_H / BASE_W));
+
   canvas.style.width = cssW + "px";
   canvas.style.height = cssH + "px";
-  canvas.width = Math.round(cssW * DPR);
-  canvas.height = Math.round(cssH * DPR);
-  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
 
-  const W = cssW;
-  const H = cssH;
+  const DPR = Math.max(1, Math.min(2.5, window.devicePixelRatio || 1));
+  canvas.width  = Math.round(cssW * DPR);
+  canvas.height = Math.round(cssH * DPR);
+  ctx.setTransform(canvas.width / BASE_W, 0, 0, canvas.height / BASE_H, 0, 0);
 
   ctx.imageSmoothingEnabled = true;
   ctx.textRendering = "geometricPrecision";
+}
 
-  const bikeSvg = `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-      <circle cx="32" cy="32" r="28" fill="rgba(255,255,255,0.94)" stroke="rgba(11,42,60,0.22)" stroke-width="2"/>
-      <path d="M18 44a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm28 0a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"
-            fill="none" stroke="#0B2A3C" stroke-width="3"/>
-      <path d="M26 20h12l6 12H32l-6 18" fill="none" stroke="#0B2A3C" stroke-width="3"
-            stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M38 20h10" fill="none" stroke="#0B2A3C" stroke-width="3" stroke-linecap="round"/>
-      <circle cx="18" cy="36" r="2" fill="#00A9E0"/>
-      <circle cx="46" cy="36" r="2" fill="#00A9E0"/>
-    </svg>
-  `.trim();
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+const W = BASE_W;
+const H = BASE_H;
+
 
   const bikeImg = new Image();
-  bikeImg.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(bikeSvg);
+bikeImg.src = "icons/bike-icon.png";
 
   let running = false;
   let started = false;
