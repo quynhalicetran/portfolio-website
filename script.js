@@ -1,4 +1,3 @@
-
 (function initLoader(){
   const loader = document.getElementById("loader");
   if (!loader) return;
@@ -79,18 +78,29 @@
   }, { once: true });
 })();
 
+
+if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+
 const route = [
-  { id: "contacts", title: "Contacts" },
-  { id: "resume", title: "Resume" },
-  { id: "education", title: "Education" },
+  { id: "quick-info", title: "Quick Info" },
+  { id: "education",  title: "Education" },
   { id: "experience", title: "Experience" },
-  { id: "game", title: "Game Break" },
-    { id: "badges", title: "Badges" },
-  { id: "projects", title: "Projects" },
-  { id: "skills", title: "Skills" },
-  { id: "interests", title: "Interests" },
-  { id: "finish", title: "Finish" }
+  { id: "game",       title: "Game Break" },
+  { id: "badges",     title: "Badges" },
+  { id: "projects",   title: "Projects" },
+  { id: "skills",     title: "Skills" },
+  { id: "finish",     title: "Finish" } 
 ];
+
+function getByIdAny(...ids){
+  for (const id of ids){
+    if (!id) continue;
+    const el = document.getElementById(id);
+    if (el) return el;
+  }
+  return null;
+}
+
 (function setTopbarHeightVar(){
   const topbar = document.querySelector(".topbar");
   if (!topbar) return;
@@ -117,29 +127,56 @@ const toastText = document.getElementById("toastText");
 const bigAlert = document.getElementById("bigAlert");
 const bigAlertText = document.getElementById("bigAlertText");
 
-const sections = route.map(r => document.getElementById(r.id));
+const sections = route.map(r => {
+  if (r.id === "quick-info"){
+    return getByIdAny("quick-info", "quickinfo", "quick", "quick_info");
+  }
+  return document.getElementById(r.id);
+});
+function getLastExistingIndex(){
+  for (let i = sections.length - 1; i >= 0; i--){
+    if (sections[i]) return i;
+  }
+  return sections.length - 1;
+}
+
+function applyFinishStateIfAtLastStop(idx){
+  const lastIdx = getLastExistingIndex(); 
+  if (idx === lastIdx){
+    finishLocked = true;
+    navLockIndex = lastIdx;
+    setFinishMode(true); 
+  } else {
+    finishLocked = false;
+    setFinishMode(false);
+  }
+}
+
 
 const idToIndex = new Map(route.map((r, i) => [r.id, i]));
 const targetToIndex = new Map(stops.map((el, i) => [el.getAttribute("data-target"), i]));
 
+if (!routeBoard || !bike || !sidebar || !stops.length){
+  console.warn("Route board missing required elements (#routeBoard, #bike, .stop, #sidebar).");
+}
+
 function getStickyOffset(){
   const topbar = document.querySelector(".topbar");
-  const sidebar = document.querySelector(".sidebar");
+  const sidebarEl = document.querySelector(".sidebar");
 
   const topbarH = topbar ? topbar.getBoundingClientRect().height : 0;
   const sidebarOnTop = window.matchMedia("(max-width: 1100px)").matches;
-  const sidebarH = (sidebarOnTop && sidebar) ? sidebar.getBoundingClientRect().height : 0;
+  const sidebarH = (sidebarOnTop && sidebarEl) ? sidebarEl.getBoundingClientRect().height : 0;
   const gap = 12;
 
   return topbarH + (sidebarOnTop ? (sidebarH + gap) : 0) + gap;
 }
 
-function scrollToSectionWithOffset(el){
+function scrollToSectionWithOffset(el, behavior = "smooth"){
   if (!el) return;
   const y = window.scrollY + el.getBoundingClientRect().top - getStickyOffset();
-  window.scrollTo({ top: y, behavior: "smooth" });
+  window.scrollTo({ top: y, behavior });
 }
-
 
 function ensureStopVisible(idx){
   if (!stopsUl) return;
@@ -182,6 +219,7 @@ function updateBikeSize(){
 }
 
 function showToast(msg = "Don't skip stops.", big = false) {
+  if (!toast || !toastText) return;
   toastText.textContent = msg;
   toast.classList.add("show");
   clearTimeout(toastTimer);
@@ -189,18 +227,21 @@ function showToast(msg = "Don't skip stops.", big = false) {
 }
 
 function showBigMessage(msg, variant = "warn") {
+  if (!bigAlert || !bigAlertText) return;
   bigAlertText.textContent = msg;
   bigAlert.classList.toggle("danger", variant === "danger");
   bigAlert.classList.add("show");
 
   clearTimeout(bigAlertTimer);
-  bigAlertTimer = setTimeout(() => {
-    bigAlert.classList.remove("show");
-  }, 1800);
+  bigAlertTimer = setTimeout(() => bigAlert.classList.remove("show"), 1800);
 }
 
 function setDangerMode(on){
-  sidebar.classList.toggle("is-danger", !!on);
+  sidebar?.classList.toggle("is-danger", !!on);
+}
+
+function setFinishMode(on){
+  sidebar?.classList.toggle("is-finish", !!on);
 }
 
 function isSkipAttempt(fromIdx, toIdx){
@@ -227,10 +268,6 @@ function setDocked(idx) {
   updateParkingSpots();
 }
 
-function setFinishMode(on){
-  sidebar.classList.toggle("is-finish", !!on);
-}
-
 function computeDockCenters(){
   if (!routeBoard) return;
   const boardRect = routeBoard.getBoundingClientRect();
@@ -238,7 +275,6 @@ function computeDockCenters(){
   boardCenters = stops.map(stop => {
     const dock = stop.querySelector(".bike-dock");
     const r = dock.getBoundingClientRect();
-
     const cx = (r.left - boardRect.left) + (r.width / 2);
     const cy = (r.top  - boardRect.top)  + (r.height / 2);
     return { cx, cy };
@@ -246,11 +282,11 @@ function computeDockCenters(){
 }
 
 function renderBike(){
+  if (!bike) return;
   bike.style.transform = `translate3d(${bikePos.x}px, ${bikePos.y}px, 0)`;
 }
 
 let lastAnimT = 0;
-
 function animateBike(t){
   bikeAnimating = true;
   if (!lastAnimT) lastAnimT = t;
@@ -258,7 +294,7 @@ function animateBike(t){
   const dt = Math.min(32, t - lastAnimT);
   lastAnimT = t;
 
-  const k = 18; 
+  const k = 18;
   const alpha = 1 - Math.exp(-k * dt / 1000);
 
   bikePos.x += (bikeTarget.x - bikePos.x) * alpha;
@@ -278,20 +314,21 @@ function animateBike(t){
   requestAnimationFrame(animateBike);
 }
 
-
 function setBikeTargetTopLeft(x, y){
   bikeTarget.x = x;
   bikeTarget.y = y;
   if (!bikeAnimating) requestAnimationFrame(animateBike);
 }
 
-
 function dockBikeAtIndex(idx, {instant=false} = {}){
   if (!boardCenters.length) return;
+
   setActive(idx);
   setDocked(idx);
 
   const c = boardCenters[idx];
+  if (!c) return;
+
   const targetX = c.cx - (BIKE_SIZE / 2);
   const targetY = c.cy - (BIKE_SIZE / 2);
 
@@ -304,6 +341,7 @@ function dockBikeAtIndex(idx, {instant=false} = {}){
     bikeAnimating = false;
     return;
   }
+
   setBikeTargetTopLeft(targetX, targetY);
 }
 
@@ -319,16 +357,25 @@ function getIndexByScroll(){
   }
   return a;
 }
-
 function atFinish(){
   const doc = document.documentElement;
-  const nearBottom = (window.scrollY + window.innerHeight) >= (doc.scrollHeight - 8);
-  const finishEl = document.getElementById("finish");
+
+  const nearBottom = (window.scrollY + window.innerHeight) >= (doc.scrollHeight - 6);
+
+  const lastIdx = getLastExistingIndex();
+  const lastEl = sections[lastIdx];
+
+  if (!lastEl) return nearBottom;
+
   const off = getStickyOffset();
-  const finishHitLine = !!finishEl && finishEl.getBoundingClientRect().top <= (off + 10);
-  const bandInView = !!finishBand && finishBand.getBoundingClientRect().top <= (window.innerHeight * 0.85);
-  return nearBottom || finishHitLine || bandInView;
+  const lastHitLine = lastEl.getBoundingClientRect().top <= (off + 10);
+
+  const bandInView =
+    !!finishBand && finishBand.getBoundingClientRect().top <= (window.innerHeight * 0.85);
+
+  return nearBottom || lastHitLine || bandInView;
 }
+
 
 function syncDockFromScroll(){
   if (!document.body.classList.contains("ride-started")) return;
@@ -339,35 +386,33 @@ function syncDockFromScroll(){
   computeDockCenters();
   if (!boardCenters.length) return;
 
-  const finished = atFinish();
-  const lastIdx = route.length - 1;
+const finished = atFinish();
+const lastIdx = getLastExistingIndex();
 
-  if (finished){
-    finishLocked = true;
-    setFinishMode(true);
-    navLockIndex = lastIdx;
-    dockBikeAtIndex(lastIdx);
-    return;
-  }
+if (finished){
+  finishLocked = true;
+  setFinishMode(true);
+  navLockIndex = lastIdx;
+  dockBikeAtIndex(lastIdx);
+  return;
+}
 
-  if (finishLocked && !finished){
+
+  if (finishLocked){
     finishLocked = false;
     setFinishMode(false);
     navLockIndex = null;
-  } else {
-    setFinishMode(false);
   }
 
   if (navLockIndex !== null){
     dockBikeAtIndex(navLockIndex);
-    if (getIndexByScroll() === navLockIndex){
-      navLockIndex = null;
-    }
+    if (getIndexByScroll() === navLockIndex) navLockIndex = null;
     return;
   }
 
   dockBikeAtIndex(getIndexByScroll());
 }
+
 function warnIfSkip(fromIdx, toIdx){
   if (isSkipAttempt(fromIdx, toIdx)){
     showBigMessage("Please don't skip stops", "warn");
@@ -392,8 +437,8 @@ function bindSidebarClicks(){
 
       computeDockCenters();
       dockBikeAtIndex(idx);
+      applyFinishStateIfAtLastStop(idx);
       scrollToSectionWithOffset(sections[idx]);
-
     });
   });
 }
@@ -402,12 +447,14 @@ function bindNavButtons(){
   document.querySelectorAll('a[data-nav]').forEach((a) => {
     a.addEventListener("click", (e) => {
       if (!document.body.classList.contains("ride-started")){
-        startRide(false);
+        startRide(true);
       }
       e.preventDefault();
       const id = a.getAttribute("data-nav");
       const idx = idToIndex.get(id);
       if (typeof idx !== "number") return;
+
+      warnIfSkip(dockedIndex, idx);
 
       navLockIndex = idx;
       finishLocked = false;
@@ -416,33 +463,39 @@ function bindNavButtons(){
       computeDockCenters();
       dockBikeAtIndex(idx);
       scrollToSectionWithOffset(sections[idx]);
-      warnIfSkip(dockedIndex, idx);
-
     });
   });
 }
-
-function startRide(scrollToEducation = true){
+function startRide(scrollToQuickInfo = true){
   document.body.classList.add("ride-started");
 
+  finishLocked = false;
+  navLockIndex = null;
+  setFinishMode(false);
+  setDangerMode(false);
+
+  window.scrollTo({ top: 0, behavior: "auto" });
   requestAnimationFrame(() => {
-    dockedIndex = 0;
-    activeIndex = 0;
-    navLockIndex = null;
-    finishLocked = false;
-    setFinishMode(false);
-    setDangerMode(false);
+    requestAnimationFrame(() => {
+      updateBikeSize();
+      computeDockCenters();
 
-    updateBikeSize();
-    computeDockCenters();
-    dockBikeAtIndex(0, {instant:true});
-syncDockFromScroll();
-syncIntroVisibility();
+      dockedIndex = 0;
+      activeIndex = 0;
 
-    if (scrollToEducation){
-      navLockIndex = 0;
-      scrollToSectionWithOffset(sections[0]); 
-    }
+      dockBikeAtIndex(0, { instant: true });
+
+      if (scrollToQuickInfo){
+        const first = sections[0];
+        navLockIndex = 0;
+        scrollToSectionWithOffset(first, "auto"); 
+        setTimeout(() => { navLockIndex = null; syncDockFromScroll(); }, 60);
+      } else {
+        syncDockFromScroll();
+      }
+
+      syncIntroVisibility();
+    });
   });
 }
 
@@ -468,7 +521,7 @@ function markDropTarget(idx){
   stops.forEach((s,i)=> s.classList.toggle("is-drop-target", i === idx));
 }
 
-bike.addEventListener("pointerdown", (e) => {
+bike?.addEventListener("pointerdown", (e) => {
   if (!document.body.classList.contains("ride-started")) return;
 
   dragging = true;
@@ -482,14 +535,13 @@ bike.addEventListener("pointerdown", (e) => {
   navLockIndex = null;
   finishLocked = false;
   setFinishMode(false);
-
   setDangerMode(false);
 
   computeDockCenters();
   markDropTarget(dockedIndex);
 });
 
-bike.addEventListener("pointermove", (e) => {
+bike?.addEventListener("pointermove", (e) => {
   if (!dragging) return;
 
   const boardRect = routeBoard.getBoundingClientRect();
@@ -523,9 +575,10 @@ bike.addEventListener("pointermove", (e) => {
 function endDrag(e){
   if (!dragging) return;
   dragging = false;
-bike.classList.remove("dragging");
-bike.classList.add("just-dropped");
-setTimeout(() => bike.classList.remove("just-dropped"), 180);
+
+  bike.classList.remove("dragging");
+  bike.classList.add("just-dropped");
+  setTimeout(() => bike.classList.remove("just-dropped"), 180);
 
   setDangerMode(false);
   computeDockCenters();
@@ -544,20 +597,19 @@ setTimeout(() => bike.classList.remove("just-dropped"), 180);
 
   warnIfSkip(dockedIndex, idx);
 
-  dockBikeAtIndex(idx);
-  navLockIndex = idx;
+dockBikeAtIndex(idx);
+navLockIndex = idx;
 
-  finishLocked = false;
-  setFinishMode(false);
+applyFinishStateIfAtLastStop(idx);
 
-  scrollToSectionWithOffset(sections[idx]);
+scrollToSectionWithOffset(sections[idx]);
+
 
   setTimeout(() => stops.forEach(s => s.classList.remove("is-drop-target")), 450);
-  return;
 }
 
-bike.addEventListener("pointerup", endDrag);
-bike.addEventListener("pointercancel", endDrag);
+bike?.addEventListener("pointerup", endDrag);
+bike?.addEventListener("pointercancel", endDrag);
 
 let stopsScrollRAF = null;
 if (stopsUl){
@@ -591,12 +643,9 @@ if (startBtn){
     startRide(true);
   });
 }
-// fix the start ride
 
 bindSidebarClicks();
 bindNavButtons();
-startRide(false);
-
 
 window.addEventListener("scroll", () => {
   if (!document.body.classList.contains("ride-started")) return;
@@ -615,6 +664,16 @@ window.addEventListener("resize", () => {
   syncDockFromScroll();
 });
 
+window.addEventListener("load", () => {
+  setTimeout(() => startRide(true), 80);
+}, { once: true });
+
+function syncIntroVisibility(){
+  if (!document.body.classList.contains("ride-started")) return;
+  const show = window.scrollY <= 40;
+  document.body.classList.toggle("show-intro", show);
+}
+
 (function initDinoGame(){
   const canvas = document.getElementById("dinoGame");
   const hint = document.getElementById("gameHint");
@@ -626,37 +685,35 @@ window.addEventListener("resize", () => {
   const ctx = canvas.getContext("2d", { alpha: true });
   if (!ctx) return;
 
-  //game over board fix
-  const BASE_W = canvas.width;  
-const BASE_H = canvas.height; 
+  const BASE_W = canvas.width;
+  const BASE_H = canvas.height;
 
-function resizeCanvas(){
-  const parentW = canvas.parentElement ? canvas.parentElement.clientWidth : BASE_W;
+  function resizeCanvas(){
+    const parentW = canvas.parentElement ? canvas.parentElement.clientWidth : BASE_W;
 
-  const cssW = Math.min(BASE_W, parentW);
-  const cssH = Math.round(cssW * (BASE_H / BASE_W));
+    const cssW = Math.min(BASE_W, parentW);
+    const cssH = Math.round(cssW * (BASE_H / BASE_W));
 
-  canvas.style.width = cssW + "px";
-  canvas.style.height = cssH + "px";
+    canvas.style.width = cssW + "px";
+    canvas.style.height = cssH + "px";
 
-  const DPR = Math.max(1, Math.min(2.5, window.devicePixelRatio || 1));
-  canvas.width  = Math.round(cssW * DPR);
-  canvas.height = Math.round(cssH * DPR);
-  ctx.setTransform(canvas.width / BASE_W, 0, 0, canvas.height / BASE_H, 0, 0);
+    const DPR = Math.max(1, Math.min(2.5, window.devicePixelRatio || 1));
+    canvas.width  = Math.round(cssW * DPR);
+    canvas.height = Math.round(cssH * DPR);
+    ctx.setTransform(canvas.width / BASE_W, 0, 0, canvas.height / BASE_H, 0, 0);
 
-  ctx.imageSmoothingEnabled = true;
-  ctx.textRendering = "geometricPrecision";
-}
+    ctx.imageSmoothingEnabled = true;
+    ctx.textRendering = "geometricPrecision";
+  }
 
-resizeCanvas();
-window.addEventListener("resize", resizeCanvas);
+  resizeCanvas();
+  window.addEventListener("resize", resizeCanvas);
 
-const W = BASE_W;
-const H = BASE_H;
-
+  const W = BASE_W;
+  const H = BASE_H;
 
   const bikeImg = new Image();
-bikeImg.src = "icons/bike-icon.png";
+  bikeImg.src = "icons/bike-icon.png";
 
   let running = false;
   let started = false;
@@ -820,67 +877,66 @@ bikeImg.src = "icons/bike-icon.png";
     ctx.fillText(`Score: ${Math.floor(score)}`, 16, 22);
     ctx.fillText(`Hi: ${Math.floor(hiScore)}`, 140, 22);
 
-if (gameOver){
-  const title = "Game Over";
-  const sub = "but you can restart";
+    if (gameOver){
+      const title = "Game Over";
+      const sub = "but you can restart";
 
-  const cx = W / 2;
-  const cy = H / 2;
-  const titleFont = "28px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace";
-  const subFont   = "16px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace";
+      const cx = W / 2;
+      const cy = H / 2;
 
-  ctx.save();
-  ctx.font = titleFont;
-  const titleW = ctx.measureText(title).width;
-  ctx.font = subFont;
-  const subW = ctx.measureText(sub).width;
-  const maxTextW = Math.max(titleW, subW);
+      const titleFont = "28px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace";
+      const subFont   = "16px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace";
 
-  const padX = 36;
-  const padY = 20;
-  const gap = 12;
-  const titleH = 34; 
-  const subH = 22;
+      ctx.save();
+      ctx.font = titleFont;
+      const titleW = ctx.measureText(title).width;
+      ctx.font = subFont;
+      const subW = ctx.measureText(sub).width;
+      const maxTextW = Math.max(titleW, subW);
 
-  const boxW = Math.min(W - 40, maxTextW + padX * 2);
-  const boxH = padY * 2 + titleH + gap + subH;
+      const padX = 36;
+      const padY = 20;
+      const gap = 12;
+      const titleH = 34;
+      const subH = 22;
 
-  const boxX = cx - boxW / 2;
-  const boxY = cy - boxH / 2;
+      const boxW = Math.min(W - 40, maxTextW + padX * 2);
+      const boxH = padY * 2 + titleH + gap + subH;
 
-  function roundRect(x, y, w, h, r){
-    r = Math.min(r, w/2, h/2);
-    ctx.beginPath();
-    ctx.moveTo(x + r, y);
-    ctx.arcTo(x + w, y, x + w, y + h, r);
-    ctx.arcTo(x + w, y + h, x, y + h, r);
-    ctx.arcTo(x, y + h, x, y, r);
-    ctx.arcTo(x, y, x + w, y, r);
-    ctx.closePath();
-  }
+      const boxX = cx - boxW / 2;
+      const boxY = cy - boxH / 2;
 
-  roundRect(boxX, boxY, boxW, boxH, 18);
-  ctx.fillStyle = "rgba(255,255,255,0.95)";
-  ctx.strokeStyle = "rgba(11,42,60,0.25)";
-  ctx.lineWidth = 3;
-  ctx.fill();
-  ctx.stroke();
+      function roundRect(x, y, w, h, r){
+        r = Math.min(r, w/2, h/2);
+        ctx.beginPath();
+        ctx.moveTo(x + r, y);
+        ctx.arcTo(x + w, y, x + w, y + h, r);
+        ctx.arcTo(x + w, y + h, x, y + h, r);
+        ctx.arcTo(x, y + h, x, y, r);
+        ctx.arcTo(x, y, x + w, y, r);
+        ctx.closePath();
+      }
 
-  ctx.textAlign = "center";
-  ctx.textBaseline = "top";
+      roundRect(boxX, boxY, boxW, boxH, 18);
+      ctx.fillStyle = "rgba(255,255,255,0.95)";
+      ctx.strokeStyle = "rgba(11,42,60,0.25)";
+      ctx.lineWidth = 3;
+      ctx.fill();
+      ctx.stroke();
 
-  ctx.fillStyle = "rgba(11,42,60,0.86)";
-  ctx.font = titleFont;
-  ctx.fillText(title, cx, boxY + padY);
+      ctx.textAlign = "center";
+      ctx.textBaseline = "top";
 
-  ctx.fillStyle = "rgba(11,42,60,0.72)";
-  ctx.font = subFont;
-  ctx.fillText(sub, cx, boxY + padY + titleH + gap);
+      ctx.fillStyle = "rgba(11,42,60,0.86)";
+      ctx.font = titleFont;
+      ctx.fillText(title, cx, boxY + padY);
 
-  ctx.restore();
-}
+      ctx.fillStyle = "rgba(11,42,60,0.72)";
+      ctx.font = subFont;
+      ctx.fillText(sub, cx, boxY + padY + titleH + gap);
 
-
+      ctx.restore();
+    }
   }
 
   function draw(){
@@ -907,7 +963,7 @@ if (gameOver){
       if (c.x < -40) c.x = W + 60;
     });
 
-    player.vy += gravity;    player.y += player.vy;
+    player.vy += gravity; player.y += player.vy;
     if (player.y >= groundY){
       player.y = groundY;
       player.vy = 0;
@@ -926,6 +982,7 @@ if (gameOver){
       obstacles[i].x -= (speed * speedMult);
       if (obstacles[i].x < -100) obstacles.splice(i,1);
     }
+
     const px = player.x + 10;
     const py = (player.y - player.h) + 10;
     const pw = player.w - 20;
@@ -985,22 +1042,29 @@ if (gameOver){
   requestAnimationFrame(step);
 })();
 
-function syncIntroVisibility(){
-  if (!document.body.classList.contains("ride-started")) return;
-  const show = window.scrollY <= 40;
-  document.body.classList.toggle("show-intro", show);
-}
-  const resumePreviewBtn = document.getElementById("resumePreviewBtn");
+const resumePreviewBtn = document.getElementById("resumePreviewBtn");
 const resumeDrawer = document.getElementById("resumeDrawer");
 const resumeDrawerClose = document.getElementById("resumeDrawerClose");
+const resumeBackdrop = document.getElementById("resumeBackdrop");
 
 function openDrawer(){
+  if (!resumeDrawer) return;
   resumeDrawer.classList.add("open");
   resumeDrawer.setAttribute("aria-hidden", "false");
+  if (resumeBackdrop){
+    resumeBackdrop.classList.add("show");
+    resumeBackdrop.setAttribute("aria-hidden", "false");
+  }
 }
+
 function closeDrawer(){
+  if (!resumeDrawer) return;
   resumeDrawer.classList.remove("open");
   resumeDrawer.setAttribute("aria-hidden", "true");
+  if (resumeBackdrop){
+    resumeBackdrop.classList.remove("show");
+    resumeBackdrop.setAttribute("aria-hidden", "true");
+  }
 }
 
 if (resumePreviewBtn && resumeDrawer){
@@ -1013,24 +1077,11 @@ if (resumeDrawerClose){
   resumeDrawerClose.addEventListener("click", closeDrawer);
 }
 
+if (resumeBackdrop){
+  resumeBackdrop.addEventListener("click", closeDrawer);
+}
+
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") closeDrawer();
 });
 
-const resumeBackdrop = document.getElementById("resumeBackdrop");
-
-function openDrawer(){
-  resumeDrawer.classList.add("open");
-  resumeDrawer.setAttribute("aria-hidden", "false");
-  resumeBackdrop.classList.add("show");
-  resumeBackdrop.setAttribute("aria-hidden", "false");
-}
-
-function closeDrawer(){
-  resumeDrawer.classList.remove("open");
-  resumeDrawer.setAttribute("aria-hidden", "true");
-  resumeBackdrop.classList.remove("show");
-  resumeBackdrop.setAttribute("aria-hidden", "true");
-}
-
-resumeBackdrop.addEventListener("click", closeDrawer);
